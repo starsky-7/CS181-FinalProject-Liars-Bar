@@ -1,0 +1,93 @@
+from typing import List, Dict
+from game import Game
+from player import RLPlayer
+from rl_agent import RLAgent
+
+class RLTrainer:
+    """
+    强化学习训练器
+    """
+    
+    def __init__(self, agent_config: Dict):
+        self.agent_config = agent_config
+        self.agent = RLAgent(**agent_config)
+    
+    def train(self, num_episodes: int, opponent_type: str = "manual") -> None:
+        """
+        训练RL代理
+        """
+        for episode in range(num_episodes):
+            print(f"Episode {episode + 1}/{num_episodes}")
+            
+            # 创建玩家配置
+            player_configs = [
+                {"name": "RL_Player", "type": "rl"},
+                {"name": "Opponent", "type": opponent_type}
+            ]
+            
+            # 创建游戏实例
+            game = Game(player_configs)
+            
+            # 启动游戏
+            game.start_game()
+            
+            # 保存模型（每100个回合）
+            if (episode + 1) % 100 == 0:
+                self.agent.save_model(f"rl_models/agent_episode_{episode + 1}.pkl")
+                print(f"Model saved at episode {episode + 1}")
+    
+    def evaluate(self, num_games: int, opponent_type: str = "manual") -> Dict:
+        """
+        评估RL代理
+        """
+        results = {
+            "wins": 0,
+            "losses": 0,
+            "total_games": num_games
+        }
+        
+        for game_num in range(num_games):
+            print(f"Evaluation Game {game_num + 1}/{num_games}")
+            
+            # 创建玩家配置
+            player_configs = [
+                {"name": "RL_Player", "type": "rl"},
+                {"name": "Opponent", "type": opponent_type}
+            ]
+            
+            # 创建游戏实例
+            game = Game(player_configs)
+            
+            # 启动游戏
+            game.start_game()
+            
+            # 记录结果
+            if game.game_record.winner == "RL_Player":
+                results["wins"] += 1
+            else:
+                results["losses"] += 1
+        
+        results["win_rate"] = results["wins"] / results["total_games"]
+        return results
+
+if __name__ == "__main__":
+    # 训练配置
+    agent_config = {
+        "state_dim": 10,
+        "action_dim": 100,  # 估计的最大动作数
+        "learning_rate": 0.1,
+        "discount_factor": 0.95,
+        "epsilon": 0.1,
+        "epsilon_decay": 0.999,
+        "epsilon_min": 0.01
+    }
+    
+    # 创建训练器
+    trainer = RLTrainer(agent_config)
+    
+    # 训练代理
+    trainer.train(num_episodes=1000)
+    
+    # 评估代理
+    results = trainer.evaluate(num_games=100)
+    print(f"Evaluation Results: {results}")

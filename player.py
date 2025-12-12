@@ -1,6 +1,9 @@
 # player.py
 
 import random
+import numpy as np
+from rl_agent import RLAgent
+from rl_utils import StateEncoder, ActionDecoder
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import List, Dict, Tuple, Optional
@@ -193,4 +196,144 @@ class ManualPlayer(BasePlayer):
 
         return result, ""  # reasoning 留空
 
+# ================== 2. 强化学习玩家 ==================
 
+class RLPlayer(BasePlayer):
+    """
+    使用强化学习训练的AI玩家
+    """
+
+    def __init__(self, name: str, agent: RLAgent, is_training: bool = True):
+        super().__init__(name)
+        self.agent = agent
+        self.is_training = is_training
+        self.prev_state = None
+        self.prev_action = None
+        self.state_encoder = StateEncoder()
+        self.action_decoder = ActionDecoder()
+        self.current_reward = 0  # 当前步骤的奖励
+
+    def choose_cards_to_play(
+        self,
+        round_base_info: str,
+        round_action_info: str,
+        play_decision_info: str,
+    ) -> Tuple[Dict, str]:
+        """
+        使用RL代理选择出牌
+        """
+        # 编码当前状态
+        state = self.state_encoder.encode_play_state(
+            round_base_info,
+            round_action_info,
+            play_decision_info,
+            self.hand,
+            self.target_card,
+            self.current_bullet_position
+        )
+
+        # 记录前一个状态和动作（用于更新）
+        if self.prev_state is not None and self.prev_action is not None:
+            self.agent.update(self.prev_state, self.prev_action, self.current_reward, state)
+
+        # 获取合法动作空间
+        legal_actions = self.action_decoder.get_legal_play_actions(self.hand)
+        
+        # 选择动作
+        action_idx = self.agent.choose_action(state, legal_actions, self.is_training)
+        action = self.action_decoder.decode_play_action(action_idx, self.hand)
+        
+        # 记录当前状态和动作
+        self.prev_state = state
+        self.prev_action = action_idx
+        
+        # 从手牌中移除已出的牌
+        for card in action["played_cards"]:
+            self.hand.remove(card)
+
+        result = {
+            "played_cards": action["played_cards"],
+            "behavior": "RL出牌",
+            "play_reason": "RL决策",
+        }
+        
+        # 重置当前奖励
+        self.current_reward = 0
+        
+        return result, f"RL选择出牌: {action['played_cards']}"
+
+    def decide_challenge(
+        self,
+        round_base_info: str,
+        round_action_info: str,
+        challenge_decision_info: str,
+        challenging_player_performance: str,
+        extra_hint: str,
+    ) -> Tuple[Dict, str]:
+        """
+        使用RL代理决定是否质疑
+        """
+        # 编码当前状态
+        state = self.state_encoder.encode_challenge_state(
+            round_base_info,
+            round_action_info,
+            challenge_decision_info,
+            challenging_player_performance,
+            self.hand,
+            self.target_card,
+            self.current_bullet_position,
+            
+        )
+
+        # 记录前一个状态和动作（用于更新）
+        if self.prev_state is not None and self.prev_action is not None:
+            self.agent.update(self.prev_state, self.prev_action, self.current_reward, state)
+
+        # 获取合法动作空间（质疑或不质疑）
+        legal_actions = [0, 1]  # 0: 不质疑, 1: 质疑
+        
+        # 选择动作
+        action_idx = self.agent.choose_action(state, legal_actions, self.is_training)
+        was_challenged = bool(action_idx)
+        
+        # 记录当前状态和动作
+        self.prev_state = state
+        self.prev_action = action_idx
+
+        result = {
+            "was_challenged": was_challenged,
+            "challenge_reason": "RL决策",
+        }
+        
+        # 重置当前奖励
+        self.current_reward = 0
+        
+        return result, f"RL选择{'质疑' if was_challenged else '不质疑'}"
+
+    def reflect(
+        self,
+        alive_players: List[str],
+        round_base_info: str,
+        round_action_info: str,
+        round_result: str,
+    ) -> None:
+        """
+        处理奖励和学习
+        """
+        # 计算奖励
+        if "死亡" in round_result and self.name in round_result:
+            self.current_reward = -100  # 玩家死亡，给予大惩罚
+        elif "幸免于难" in round_result and self.name in round_result:
+            self.current_reward = 50  # 玩家存活，给予奖励
+        elif "质疑成功" in round_result:
+            self.current_reward = 20  # 质疑成功，给予奖励
+        elif "质疑失败" in round_result:
+            self.current_reward = -20  # 质疑失败，给予惩罚
+        
+        # 如果游戏结束，进行最终更新
+        if not self.alive or len(alive_players) == 1:
+            if self.prev_state is not None and self.prev_action is not None:
+                # 最终状态设置为None表示游戏结束
+                self.agent.update(self.prev_state, self.prev_action, self.current_reward, None)
+                self.prev_state = None
+                self.prev_action = None

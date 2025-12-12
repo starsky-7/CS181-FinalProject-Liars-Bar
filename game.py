@@ -276,7 +276,7 @@ class Game:
             current_player.name
         )
 
-        # 获取被质疑玩家的表现
+        # 获取正在质疑玩家的表现
         challenging_player_behavior = self.game_record.get_latest_play_behavior()
 
         # 检查是否需要添加额外提示
