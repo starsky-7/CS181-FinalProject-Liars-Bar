@@ -101,11 +101,7 @@ class Game:
         self.deck = self._create_deck()
         """
 
-        if self.round_count == 0:
-            self.deck = self._create_deck()
-            self.first_deck = self.deck.copy()
-        else:
-            self.deck = self.first_deck.copy()
+        self.deck = self._create_deck()  # 改回来了，现在是每局都重新洗牌
         for player in self.players:
             if player.alive:
                 player.hand.clear()

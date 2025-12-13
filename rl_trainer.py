@@ -33,7 +33,7 @@ class RLTrainer:
             # self.agent.print_q_table_summary(output_file=f"q_table_summary.txt")
             
             # 保存模型（每100个回合）
-            if (episode + 1) % 1000 == 0:
+            if (episode + 1) % 5000 == 0:
                 self.agent.save_model(f"rl_models/agent_episode_{episode + 1}.pkl")
                 print(f"Model saved at episode {episode + 1}")
                 self.agent.print_q_table_summary(output_file=f"q_table_summary.txt")
