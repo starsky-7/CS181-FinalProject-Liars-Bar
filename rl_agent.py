@@ -32,16 +32,22 @@ class RLAgent:
         
         # 探索：随机选择动作
         if is_training and random.uniform(0, 1) < self.epsilon:
+            # print("choose random action")
             return random.choice(legal_actions)
         
         # 利用：选择Q值最高的动作
         q_values = self._get_q_values(state_key, legal_actions)
+        # print(f"choose action by argmax: {legal_actions[np.argmax(q_values)]}")
         return legal_actions[np.argmax(q_values)]
     
-    def update(self, state: Tuple, action: int, reward: float, next_state: Tuple) -> None:
+    def update(self, state: Tuple, action: int, reward: float, next_state: Tuple, is_training: bool = True) -> None:
         """
         更新Q表
         """
+        # 非训练模式下，不更新Q表
+        if not is_training:
+            return
+        
         state_key = self._get_state_key(state)
         next_state_key = self._get_state_key(next_state) if next_state else None
         
@@ -62,6 +68,7 @@ class RLAgent:
         if state_key not in self.q_table:
             self.q_table[state_key] = {}
         self.q_table[state_key][action] = new_q
+        # print(f"Q-table updated: {state_key} -> {action} -> {new_q:.4f}")
         
         # 衰减探索率
         if self.epsilon > self.epsilon_min:
@@ -96,20 +103,40 @@ class RLAgent:
                 'epsilon': self.epsilon
             }, f)
     
-    def print_q_table_summary(self, max_entries: int = 10) -> None:
+    def print_q_table_summary(self, max_entries: int = 10, output_file: str = None) -> None:
         """
         打印Q表摘要（前max_entries个条目）
+        
+        参数:
+            max_entries: 要显示的最大条目数
+            output_file: 可选的输出文件路径，如果提供则将输出写入文件，否则打印到控制台
         """
-        print(f"Q表大小: {len(self.q_table)} 条目")
-        print(f"当前epsilon: {self.epsilon}")
+        # 准备输出内容
+        output_lines = []
+        output_lines.append(f"Size of Q-table: {len(self.q_table)} entries")
+        output_lines.append(f"Current epsilon: {self.epsilon}")
+        
         if self.q_table:
-            print("前几个Q值条目:")
+            output_lines.append(f"First {max_entries} Q-value entries:")
             for i, (state, actions) in enumerate(self.q_table.items()):
                 if i >= max_entries:
                     break
-                print(f"  状态 {state}: {actions}")
+                output_lines.append(f"  State {state}: {actions}")
         else:
-            print("Q表为空")
+            output_lines.append("Q-table is empty")
+        
+        # 输出内容
+        output_text = "\n".join(output_lines)
+        
+        if output_file:
+            # 写入文件
+            with open(output_file, 'a') as f:  # 使用'a'模式追加写入
+                f.write(output_text)
+                f.write("\n" + "="*50 + "\n")  # 添加分隔线
+            print(f"Q-table summary saved to file: {output_file}")
+        else:
+            # 打印到控制台
+            print(output_text)
     
     def load_model(self, file_path: str) -> None:
         """

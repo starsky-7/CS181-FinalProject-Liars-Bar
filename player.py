@@ -279,7 +279,7 @@ class RLPlayer(BasePlayer):
 
         # 记录前一个状态和动作（用于更新）
         if self.prev_state is not None and self.prev_action is not None:
-            self.agent.update(self.prev_state, self.prev_action, self.current_reward, state)
+            self.agent.update(self.prev_state, self.prev_action, self.current_reward, state, self.is_training)
 
         # 获取合法动作空间
         legal_actions = self.action_decoder.get_legal_play_actions(self.hand)
@@ -332,7 +332,7 @@ class RLPlayer(BasePlayer):
 
         # 记录前一个状态和动作（用于更新）
         if self.prev_state is not None and self.prev_action is not None:
-            self.agent.update(self.prev_state, self.prev_action, self.current_reward, state)
+            self.agent.update(self.prev_state, self.prev_action, self.current_reward, state, self.is_training)
 
         # 获取合法动作空间（质疑或不质疑）
         legal_actions = [0, 1]  # 0: 不质疑, 1: 质疑
@@ -364,16 +364,36 @@ class RLPlayer(BasePlayer):
     ) -> None:
         """
         处理奖励和学习
+        对局信息示例：
+        000000000000round_base_info: 现在是第2轮，目标牌：K，本轮玩家：RL_Player、Opponent，从玩家Opponent开始
+
+        111111111111round_action_info: 轮到Opponent出牌，Opponent宣称打出1张'K'，剩余手牌4张
+        Opponent 的表现：简单策略：只出真牌
+        你选择不质疑Opponent
+        轮到你出牌，你打出2张牌，出牌：K、K，剩余手牌：Q、A、K
+        你的表现：RL出牌
+        Opponent选择质疑你，你打出的牌是：K、K，质疑失败
+
+        222222222222round_result: Opponent开枪！没有命中，Opponent还活着
         """
+        print(f'000000000000round_base_info: {round_base_info}')
+        print(f"111111111111round_action_info: {round_action_info}")
+        print(f"222222222222round_result: {round_result}")
         # 计算奖励
-        if "死亡" in round_result and self.name in round_result:
+        if "死亡" in round_result and "你" in round_result:
             self.current_reward = -100  # 玩家死亡，给予大惩罚
-        elif "幸免于难" in round_result and self.name in round_result:
-            self.current_reward = 50  # 玩家存活，给予奖励
-        elif "质疑成功" in round_result:
+        elif "活着" in round_result and "你" in round_result:
+            self.current_reward = -50  # xx玩家存活，给予奖励xx ---------> 你在奖励什么？？？出现这个情况，说明你开枪了，都已经输了一半了哥们，还搁那奖励呢
+        elif "死亡" in round_result and "你" not in round_result:
+            self.current_reward = 100  # 对手死亡，给予大奖励
+        # elif "活着" in round_result and "你" not in round_result:  这个应该不需要惩罚，因为出现这个情况，说明你已经获利
+        #     self.current_reward = -50  # 对手存活，给予惩罚
+        elif "质疑成功" in round_action_info and "你" not in round_result:
             self.current_reward = 20  # 质疑成功，给予奖励
-        elif "质疑失败" in round_result:
+        elif "质疑失败" in round_action_info and "你" in round_result:
             self.current_reward = -20  # 质疑失败，给予惩罚
+
+        print(f"Player {self.name} received reward: {self.current_reward}")
         
         # 如果游戏结束，进行最终更新
         if not self.alive or len(alive_players) == 1:

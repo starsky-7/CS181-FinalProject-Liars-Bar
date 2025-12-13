@@ -30,14 +30,15 @@ class RLTrainer:
             
             # 启动游戏
             game.start_game()
+            # self.agent.print_q_table_summary(output_file=f"q_table_summary.txt")
             
             # 保存模型（每100个回合）
             if (episode + 1) % 100 == 0:
                 self.agent.save_model(f"rl_models/agent_episode_{episode + 1}.pkl")
                 print(f"Model saved at episode {episode + 1}")
-                self.agent.print_q_table_summary()
+                self.agent.print_q_table_summary(output_file=f"q_table_summary.txt")
     
-    def evaluate(self, num_games: int, opponent_type: str = "manual") -> Dict:
+    def evaluate(self, num_games: int, opponent_type: str = "simple") -> Dict:
         """
         评估RL代理
         """
@@ -76,9 +77,9 @@ class RLTrainer:
 if __name__ == "__main__":
     # 训练配置
     agent_config = {
-        "learning_rate": 0.1,
+        "learning_rate": 0.01,
         "discount_factor": 0.95,
-        "epsilon": 0.1,
+        "epsilon": 0.5,
         "epsilon_decay": 0.999,
         "epsilon_min": 0.01
     }
@@ -90,5 +91,5 @@ if __name__ == "__main__":
     trainer.train(num_episodes=1000)
     
     # 评估代理
-    results = trainer.evaluate(num_games=100)
+    results = trainer.evaluate(num_games=1000)
     print(f"Evaluation Results: {results}")

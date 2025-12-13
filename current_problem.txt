@@ -1,7 +1,8 @@
-1. rl_agent.py 中 load_model 函数没有被调用过，也就是说q表和epsilon虽然被保存，
-但是如果我想重新开一局游戏，仍然要从新训练学习q表
-2. rl_utils.py 中 state 被分成 play state 和 challenge state，且challenge state 只比 play state 多了一个 claimed_cards，
-这样到底是维护了几个q表？
-3. 说谎阶段有问题：一直是xxx宣称打出1张'A'，推测可能是
+1. rl_agent.py 中 load_model 函数没有被调用过，可能是因为目前并没有要用它的地方。
+在train的main中： trainer = RLTrainer(agent_config)创建了一个agent实例，q表和epsilon值存在trainer的成员变量中，
+train时不断更新q_table和epsilon，evaluate时也不需要重新加载qtable，而是直接调用traine的成员变量，epsilon则是通过
+istraining=false直接使其失效
+
+2. player.py 的reward计算函数 reflect 中：是否应该用“你”来判断玩家类别
 
 
