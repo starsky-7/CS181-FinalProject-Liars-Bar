@@ -19,7 +19,7 @@ class BasePlayer(ABC):
     - 统一的决策函数签名
     """
 
-    def __init__(self, name: str):
+    def __init__(self, name: str, showDetails: bool = True):
         self.name = name
         self.hand: List[str] = []
         self.alive: bool = True
@@ -27,13 +27,15 @@ class BasePlayer(ABC):
         self.current_bullet_position: int = 0             # 当前弹仓位置
         self.opinions: Dict[str, str] = {}                # 对其他玩家的印象
         self.target_card: Optional[str] = None            # 当前局的目标牌（由 Game 设置）
+        self.showDetails = showDetails
 
     def print_status(self) -> None:
         """打印玩家状态"""
-        print(
-            f"{self.name} - 手牌: {', '.join(self.hand)} - "
-            f"子弹位置: {self.bullet_position} - 当前弹舱位置: {self.current_bullet_position}"
-        )
+        if self.showDetails:
+            print(
+                f"{self.name} - 手牌: {', '.join(self.hand)} - "
+                f"子弹位置: {self.bullet_position} - 当前弹舱位置: {self.current_bullet_position}"
+            )
 
     def init_opinions(self, other_players: List["BasePlayer"]) -> None:
         """初始化对其他玩家的看法"""
@@ -99,13 +101,16 @@ class BasePlayer(ABC):
 
     def process_penalty(self) -> bool:
         """处理惩罚：俄罗斯轮盘赌逻辑"""
-        print(f"玩家 {self.name} 执行射击惩罚：")
+        if self.showDetails:
+            print(f"玩家 {self.name} 执行射击惩罚：")
         self.print_status()
         if self.bullet_position == self.current_bullet_position:
-            print(f"{self.name} 中枪死亡！")
+            if self.showDetails:
+                print(f"{self.name} 中枪死亡！")
             self.alive = False
         else:
-            print(f"{self.name} 幸免于难！")
+            if self.showDetails:
+                print(f"{self.name} 幸免于难！")
         self.current_bullet_position = (self.current_bullet_position + 1) % 6
         return self.alive
 
@@ -248,8 +253,8 @@ class RLPlayer(BasePlayer):
     使用强化学习训练的AI玩家
     """
 
-    def __init__(self, name: str, agent: RLAgent, is_training: bool = True):
-        super().__init__(name)
+    def __init__(self, name: str, showDetails: bool, agent: RLAgent, is_training: bool = True):
+        super().__init__(name, showDetails)
         self.agent = agent
         self.is_training = is_training
         self.prev_state = None
@@ -376,9 +381,9 @@ class RLPlayer(BasePlayer):
 
         222222222222round_result: Opponent开枪！没有命中，Opponent还活着
         """
-        print(f'000000000000round_base_info: {round_base_info}')
-        print(f"111111111111round_action_info: {round_action_info}")
-        print(f"222222222222round_result: {round_result}")
+        # print(f'000000000000round_base_info: {round_base_info}')
+        # print(f"111111111111round_action_info: {round_action_info}")
+        # print(f"222222222222round_result: {round_result}")
         # 计算奖励
         if "死亡" in round_result and "你" in round_result:
             self.current_reward = -100  # 玩家死亡，给予大惩罚
@@ -393,7 +398,7 @@ class RLPlayer(BasePlayer):
         elif "质疑失败" in round_action_info and "你" in round_result:
             self.current_reward = -20  # 质疑失败，给予惩罚
 
-        print(f"Player {self.name} received reward: {self.current_reward}")
+        # print(f"Player {self.name} received reward: {self.current_reward}")
         
         # 如果游戏结束，进行最终更新
         if not self.alive or len(alive_players) == 1:

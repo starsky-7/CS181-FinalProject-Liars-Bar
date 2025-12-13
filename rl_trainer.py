@@ -2,6 +2,7 @@ from typing import List, Dict
 from game import Game
 from player import RLPlayer
 from rl_agent import RLAgent
+from tqdm import tqdm
 
 class RLTrainer:
     """
@@ -16,8 +17,7 @@ class RLTrainer:
         """
         训练RL代理
         """
-        for episode in range(num_episodes):
-            print(f"Episode {episode + 1}/{num_episodes}")
+        for episode in tqdm(range(num_episodes), desc="Training Episodes"):
             
             # 创建玩家配置
             player_configs = [
@@ -26,14 +26,14 @@ class RLTrainer:
             ]
             
             # 创建游戏实例
-            game = Game(player_configs)
+            game = Game(player_configs, showDetails=False)
             
             # 启动游戏
             game.start_game()
             # self.agent.print_q_table_summary(output_file=f"q_table_summary.txt")
             
             # 保存模型（每100个回合）
-            if (episode + 1) % 100 == 0:
+            if (episode + 1) % 1000 == 0:
                 self.agent.save_model(f"rl_models/agent_episode_{episode + 1}.pkl")
                 print(f"Model saved at episode {episode + 1}")
                 self.agent.print_q_table_summary(output_file=f"q_table_summary.txt")
@@ -58,7 +58,7 @@ class RLTrainer:
             ]
             
             # 创建游戏实例
-            game = Game(player_configs)
+            game = Game(player_configs, showDetails=True)
             
             # 启动游戏
             game.start_game()
@@ -88,8 +88,8 @@ if __name__ == "__main__":
     trainer = RLTrainer(agent_config)
     
     # 训练代理
-    trainer.train(num_episodes=1000)
+    trainer.train(num_episodes=50000)
     
     # 评估代理
-    results = trainer.evaluate(num_games=1000)
+    results = trainer.evaluate(num_games=100)
     print(f"Evaluation Results: {results}")
