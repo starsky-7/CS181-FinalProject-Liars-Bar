@@ -3,3 +3,5 @@
 2. rl_utils.py 中 state 被分成 play state 和 challenge state，且challenge state 只比 play state 多了一个 claimed_cards，
 这样到底是维护了几个q表？
 3. 说谎阶段有问题：一直是xxx宣称打出1张'A'，推测可能是
+
+

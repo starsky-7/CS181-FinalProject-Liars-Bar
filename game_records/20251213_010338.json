@@ -1,0 +1,79 @@
+{
+    "game_id": "20251213_010338",
+    "player_names": [
+        "RL_Player",
+        "Opponent"
+    ],
+    "rounds": [
+        {
+            "round_id": 1,
+            "target_card": "A",
+            "round_players": [
+                "RL_Player",
+                "Opponent"
+            ],
+            "starting_player": "RL_Player",
+            "player_initial_states": [
+                {
+                    "player_name": "RL_Player",
+                    "bullet_position": 0,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "Joker",
+                        "Q",
+                        "Joker",
+                        "K",
+                        "A"
+                    ]
+                },
+                {
+                    "player_name": "Opponent",
+                    "bullet_position": 4,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "Q",
+                        "K",
+                        "Q",
+                        "K",
+                        "Q"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "RL_Player": {
+                    "Opponent": "还不了解这个玩家"
+                },
+                "Opponent": {
+                    "RL_Player": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "RL_Player",
+                    "played_cards": [
+                        "Joker",
+                        "K"
+                    ],
+                    "remaining_cards": [
+                        "Q",
+                        "Joker",
+                        "A"
+                    ],
+                    "play_reason": "RL决策",
+                    "behavior": "RL出牌",
+                    "next_player": "Opponent",
+                    "was_challenged": true,
+                    "challenge_reason": "直觉",
+                    "challenge_result": true,
+                    "play_thinking": "RL选择出牌: ['Joker', 'K']",
+                    "challenge_thinking": ""
+                }
+            ],
+            "round_result": {
+                "shooter_name": "RL_Player",
+                "bullet_hit": true
+            }
+        }
+    ],
+    "winner": "Opponent"
+}

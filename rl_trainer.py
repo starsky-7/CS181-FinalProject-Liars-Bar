@@ -12,7 +12,7 @@ class RLTrainer:
         self.agent_config = agent_config
         self.agent = RLAgent(**agent_config)
     
-    def train(self, num_episodes: int, opponent_type: str = "manual") -> None:
+    def train(self, num_episodes: int, opponent_type: str = "simple") -> None:
         """
         训练RL代理
         """
@@ -21,7 +21,7 @@ class RLTrainer:
             
             # 创建玩家配置
             player_configs = [
-                {"name": "RL_Player", "type": "rl"},
+                {"name": "RL_Player", "type": "rl", "agent": self.agent, "is_training": True},
                 {"name": "Opponent", "type": opponent_type}
             ]
             
@@ -35,6 +35,7 @@ class RLTrainer:
             if (episode + 1) % 100 == 0:
                 self.agent.save_model(f"rl_models/agent_episode_{episode + 1}.pkl")
                 print(f"Model saved at episode {episode + 1}")
+                self.agent.print_q_table_summary()
     
     def evaluate(self, num_games: int, opponent_type: str = "manual") -> Dict:
         """
@@ -51,7 +52,7 @@ class RLTrainer:
             
             # 创建玩家配置
             player_configs = [
-                {"name": "RL_Player", "type": "rl"},
+                {"name": "RL_Player", "type": "rl", "agent": self.agent, "is_training": False},
                 {"name": "Opponent", "type": opponent_type}
             ]
             
@@ -68,13 +69,13 @@ class RLTrainer:
                 results["losses"] += 1
         
         results["win_rate"] = results["wins"] / results["total_games"]
+        print(f"评估完成。Q表摘要:")
+        self.agent.print_q_table_summary()
         return results
 
 if __name__ == "__main__":
     # 训练配置
     agent_config = {
-        "state_dim": 10,
-        "action_dim": 100,  # 估计的最大动作数
         "learning_rate": 0.1,
         "discount_factor": 0.95,
         "epsilon": 0.1,

@@ -5,6 +5,8 @@ from game_record import GameRecord, PlayerInitialState
 from player import (
     BasePlayer,
     ManualPlayer,
+    SimpleStrategyPlayer,
+    RLPlayer,
     # MinimaxPlayer,
     # QLearningPlayer,
 )
@@ -20,8 +22,9 @@ class Game:
             player_configs: 玩家配置列表，每个元素例如：
                 {
                     "name": "Human1",
-                    "type": "manual",      # "manual" / "minimax" / "qlearning"
-                    "search_depth": 2      # 仅 minimax 需要（可选）
+                    "type": "manual",      # "manual" / "simple" / "rl"
+                    "agent": RLAgent()     # 仅 rl 需要
+                    "is_training": True    # 仅 rl 需要
                 }
         """
         self.players: List[BasePlayer] = []
@@ -36,6 +39,14 @@ class Game:
             #     player = LLMPlayer(name, model)  # LLMPlayer 不再使用，删除该行
             if p_type == "manual":
                 player = ManualPlayer(name)
+            elif p_type == "simple":
+                player = SimpleStrategyPlayer(name)
+            elif p_type == "rl":
+                agent = config.get("agent")
+                if agent is None:
+                    raise ValueError("RL玩家需要提供agent实例")
+                is_training = config.get("is_training", True)
+                player = RLPlayer(name, agent, is_training)
             # elif p_type == "minimax":
             #     depth = config.get("search_depth", 1)
             #     player = MinimaxPlayer(name, search_depth=depth)
@@ -60,6 +71,7 @@ class Game:
         self.game_record: GameRecord = GameRecord()
         self.game_record.start_game([p.name for p in self.players])
         self.round_count = 0
+        self.first_deck: Optional[List[str]] = None
 
     def _create_deck(self) -> List[str]:
         """创建并洗牌牌组"""
@@ -69,7 +81,28 @@ class Game:
 
     def deal_cards(self) -> None:
         """发牌并清空旧手牌"""
+
+        """
+        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        !!!!!!!!!!!!!!!!
+        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        为了调试用，我让它每局发一样的牌了。之后只需要把：
+        if self.round_count == 0:
+            self.deck = self._create_deck()
+            self.first_deck = self.deck.copy()
+        else:
+            self.deck = self.first_deck.copy()
+
+        改成：
         self.deck = self._create_deck()
+        """
+
+        if self.round_count == 0:
+            self.deck = self._create_deck()
+            self.first_deck = self.deck.copy()
+        else:
+            self.deck = self.first_deck.copy()
         for player in self.players:
             if player.alive:
                 player.hand.clear()
@@ -437,6 +470,7 @@ if __name__ == "__main__":
     player_configs = [
         {"name": "Human1", "type": "manual"},
         {"name": "Human2", "type": "manual"}
+        # {"name": "SimpleAI", "type": "simple"},
         # {"name": "MiniAI", "type": "minimax", "search_depth": 2},
         # {"name": "QLearner", "type": "qlearning"},
     ]

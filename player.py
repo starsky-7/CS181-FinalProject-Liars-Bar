@@ -196,7 +196,52 @@ class ManualPlayer(BasePlayer):
 
         return result, ""  # reasoning 留空
 
-# ================== 2. 强化学习玩家 ==================
+# ================== 2. 简单策略玩家 ==================
+
+
+class SimpleStrategyPlayer(BasePlayer):
+    """
+    使用最简单策略的AI玩家：
+    - 出牌阶段：只出真牌（目标牌或Joker），如果没有则不出牌
+    - 质疑阶段：总是质疑
+    """
+
+    def choose_cards_to_play(
+        self,
+        round_base_info: str,
+        round_action_info: str,
+        play_decision_info: str,
+    ) -> Tuple[Dict, str]:
+        # 选择所有符合目标牌的牌（目标牌或Joker）
+        valid_cards = [card for card in self.hand if card == self.target_card or card == 'Joker']
+        
+        # 从手牌中移除已出的牌
+        for card in valid_cards:
+            self.hand.remove(card)
+
+        result = {
+            "played_cards": valid_cards,
+            "behavior": "简单策略：只出真牌",
+            "play_reason": f"出{len(valid_cards)}张真牌",
+        }
+        return result, f"简单策略：出真牌 {valid_cards}"
+
+    def decide_challenge(
+        self,
+        round_base_info: str,
+        round_action_info: str,
+        challenge_decision_info: str,
+        challenging_player_performance: str,
+        extra_hint: str,
+    ) -> Tuple[Dict, str]:
+        # 总是质疑
+        result = {
+            "was_challenged": True,
+            "challenge_reason": "简单策略：总是质疑",
+        }
+        return result, "简单策略：总是质疑"
+
+# ================== 3. 强化学习玩家 ==================
 
 class RLPlayer(BasePlayer):
     """
