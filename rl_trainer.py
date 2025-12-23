@@ -1,7 +1,8 @@
 from typing import List, Dict
 from game import Game
 from player import RLPlayer
-from rl_agent import RLAgent
+from LinearQAgent import LinearQAgent
+from DQNAgent import DQNAgent
 from tqdm import tqdm
 
 class RLTrainer:
@@ -9,11 +10,15 @@ class RLTrainer:
     强化学习训练器
     """
     
-    def __init__(self, agent_config: Dict):
+    def __init__(self, agent_type: str, agent_config: Dict):
+        self.agent_type = agent_type
         self.agent_config = agent_config
-        self.agent = RLAgent(**agent_config)
+        if self.agent_type == "LinearQ":
+            self.agent = LinearQAgent(**agent_config)
+        elif self.agent_type == "dqn":
+            self.agent = DQNAgent(**agent_config)
     
-    def train(self, num_episodes: int, opponent_type: str = "simple") -> None:
+    def train(self, num_episodes: int, opponent_types: List[str] = ["simple", "smarter"]) -> None:
         """
         训练RL代理
         """
@@ -21,8 +26,10 @@ class RLTrainer:
             
             # 创建玩家配置
             player_configs = [
-                {"name": "RL_Player", "type": "rl", "agent": self.agent, "is_training": True},
-                {"name": "Opponent", "type": opponent_type}
+                {"name": "RL_Player", "type": self.agent_type, "agent": self.agent, "is_training": True},
+                {"name": "Opponent1", "type": opponent_types[0]},
+                {"name": "Opponent2", "type": opponent_types[1]},
+                {"name": "Opponent3", "type": opponent_types[2]}
             ]
             
             # 创建游戏实例
@@ -36,9 +43,9 @@ class RLTrainer:
             if (episode + 1) % 5000 == 0:
                 self.agent.save_model(f"rl_models/agent_episode_{episode + 1}.pkl")
                 print(f"Model saved at episode {episode + 1}")
-                self.agent.print_q_table_summary(output_file=f"q_table_summary.txt")
+                # self.agent.print_q_table_summary(output_file=f"q_table_summary.txt")
     
-    def evaluate(self, num_games: int, opponent_type: str = "simple") -> Dict:
+    def evaluate(self, num_games: int, opponent_types: List[str]) -> Dict:
         """
         评估RL代理
         """
@@ -53,8 +60,10 @@ class RLTrainer:
             
             # 创建玩家配置
             player_configs = [
-                {"name": "RL_Player", "type": "rl", "agent": self.agent, "is_training": False},
-                {"name": "Opponent", "type": opponent_type}
+                {"name": "RL_Player", "type": self.agent_type, "agent": self.agent, "is_training": False},
+                {"name": "Opponent1", "type": opponent_types[0]},
+                {"name": "Opponent2", "type": opponent_types[1]},
+                {"name": "Opponent3", "type": opponent_types[2]}
             ]
             
             # 创建游戏实例
@@ -70,12 +79,14 @@ class RLTrainer:
                 results["losses"] += 1
         
         results["win_rate"] = results["wins"] / results["total_games"]
-        print(f"评估完成。Q表摘要:")
-        self.agent.print_q_table_summary()
+        # print(f"评估完成。Q表摘要:")
+        # self.agent.print_q_table_summary()
         return results
 
 if __name__ == "__main__":
     # 训练配置
+    agent_type = "dqn"  # "LinearQ" 或 "dqn"
+
     agent_config = {
         "learning_rate": 0.01,
         "discount_factor": 0.95,
@@ -85,11 +96,11 @@ if __name__ == "__main__":
     }
     
     # 创建训练器
-    trainer = RLTrainer(agent_config)
+    trainer = RLTrainer(agent_type, agent_config)
     
     # 训练代理
-    trainer.train(num_episodes=50000)
+    trainer.train(num_episodes=500, opponent_types=["simple", "smarter", "smarter"])
     
     # 评估代理
-    results = trainer.evaluate(num_games=100)
+    results = trainer.evaluate(num_games=200, opponent_types=["simple", "smarter", "smarter"])
     print(f"Evaluation Results: {results}")

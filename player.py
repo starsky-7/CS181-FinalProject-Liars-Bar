@@ -2,7 +2,8 @@
 
 import random
 import numpy as np
-from rl_agent import RLAgent
+from LinearQAgent import LinearQAgent
+from DQNAgent import DQNAgent
 from rl_utils import StateEncoder, ActionDecoder
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
@@ -13,7 +14,7 @@ import math
 
 class BasePlayer(ABC):
     """
-    所有玩家（手动 / Minimax / QLearning）的统一接口。
+    所有玩家（手动 / Minimax / LinearQ）的统一接口。
     负责维护：
     - 基本状态（手牌、存活、子弹位置等）
     - 统一的决策函数签名
@@ -63,6 +64,7 @@ class BasePlayer(ABC):
         - reasoning: 额外“思考过程”，可以是空字符串
         """
         ...
+        
 
     @abstractmethod
     def decide_challenge(
@@ -95,7 +97,7 @@ class BasePlayer(ABC):
         轮次结束后的反思过程。
 
         默认实现：什么都不做。
-        - QLearningPlayer 可以在这里更新 Q 表
+        - LinearQPlayer 可以在这里更新 Q 表
         """
         pass
 
@@ -201,59 +203,14 @@ class ManualPlayer(BasePlayer):
 
         return result, ""  # reasoning 留空
 
-# ================== 2. 简单策略玩家 ==================
-
-
-class SimpleStrategyPlayer(BasePlayer):
-    """
-    使用最简单策略的AI玩家：
-    - 出牌阶段：只出真牌（目标牌或Joker），如果没有则不出牌
-    - 质疑阶段：总是质疑
-    """
-
-    def choose_cards_to_play(
-        self,
-        round_base_info: str,
-        round_action_info: str,
-        play_decision_info: str,
-    ) -> Tuple[Dict, str]:
-        # 选择所有符合目标牌的牌（目标牌或Joker）
-        valid_cards = [card for card in self.hand if card == self.target_card or card == 'Joker']
-        
-        # 从手牌中移除已出的牌
-        for card in valid_cards:
-            self.hand.remove(card)
-
-        result = {
-            "played_cards": valid_cards,
-            "behavior": "简单策略：只出真牌",
-            "play_reason": f"出{len(valid_cards)}张真牌",
-        }
-        return result, f"简单策略：出真牌 {valid_cards}"
-
-    def decide_challenge(
-        self,
-        round_base_info: str,
-        round_action_info: str,
-        challenge_decision_info: str,
-        challenging_player_performance: str,
-        extra_hint: str,
-    ) -> Tuple[Dict, str]:
-        # 总是质疑
-        result = {
-            "was_challenged": True,
-            "challenge_reason": "简单策略：总是质疑",
-        }
-        return result, "简单策略：总是质疑"
-
-# ================== 3. 强化学习玩家 ==================
+# ================== 2. 强化学习玩家 ==================
 
 class RLPlayer(BasePlayer):
     """
     使用强化学习训练的AI玩家
     """
 
-    def __init__(self, name: str, showDetails: bool, agent: RLAgent, is_training: bool = True):
+    def __init__(self, name: str, showDetails: bool, agent: LinearQAgent | DQNAgent, is_training: bool = True):
         super().__init__(name, showDetails)
         self.agent = agent
         self.is_training = is_training
@@ -281,19 +238,24 @@ class RLPlayer(BasePlayer):
             self.target_card,
             self.current_bullet_position
         )
+        # 获取全局动作空间（play phase）
+        N = self.action_decoder.num_play_actions()
+        mask = self.action_decoder.get_total_action_mask("play", self.hand)  # shape = (N+2,)
+        
+        # # 过滤出合法动作
+        # legal_actions = [i for i, m in enumerate(mask) if m > 0.5]
 
         # 记录前一个状态和动作（用于更新）
         if self.prev_state is not None and self.prev_action is not None:
-            self.agent.update(self.prev_state, self.prev_action, self.current_reward, state, self.is_training)
-
-        # 获取合法动作空间
-        legal_actions = self.action_decoder.get_legal_play_actions(self.hand)
-        
+            self.agent.update(self.prev_state, self.prev_action, self.current_reward, state, mask, done=False, is_training=self.is_training)
+  
         # 选择动作
-        action_idx = self.agent.choose_action(state, legal_actions, self.is_training)
+        action_idx = self.agent.choose_action(state, mask, self.is_training)
+        # assert action_idx < N, "play 阶段不应选择 challenge 动作（mask 应该已屏蔽）"
         action = self.action_decoder.decode_play_action(action_idx, self.hand)
+
         
-        # 记录当前状态和动作
+        # 记录当前状态和动作 (注意：现在的prev_action存的是全局动作索引)
         self.prev_state = state
         self.prev_action = action_idx
         
@@ -331,22 +293,26 @@ class RLPlayer(BasePlayer):
             challenging_player_performance,
             self.hand,
             self.target_card,
-            self.current_bullet_position,
-            
+            self.current_bullet_position
         )
+        # 获取全局动作空间（challenge phase）
+        N = self.action_decoder.num_play_actions()
+        mask = self.action_decoder.get_total_action_mask("challenge", self.hand)  # shape = (N+2,)
+        
+        # # 过滤出合法动作
+        # legal_actions = [i for i, m in enumerate(mask) if m > 0.5]
+        # 为保持接口统一，只传入mask
 
         # 记录前一个状态和动作（用于更新）
         if self.prev_state is not None and self.prev_action is not None:
-            self.agent.update(self.prev_state, self.prev_action, self.current_reward, state, self.is_training)
-
-        # 获取合法动作空间（质疑或不质疑）
-        legal_actions = [0, 1]  # 0: 不质疑, 1: 质疑
+            self.agent.update(self.prev_state, self.prev_action, self.current_reward, state, mask, done=False, is_training=self.is_training)
         
         # 选择动作
-        action_idx = self.agent.choose_action(state, legal_actions, self.is_training)
-        was_challenged = bool(action_idx)
-        
-        # 记录当前状态和动作
+        action_idx = self.agent.choose_action(state, mask, self.is_training)
+        # assert action_idx in (N, N+1), "challenge 阶段只应选择 N(不质疑) 或 N+1(质疑)"
+        was_challenged = (action_idx == N + 1)
+                
+        # 记录当前状态和动作 (注意：现在的prev_action存的是全局动作索引)
         self.prev_state = state
         self.prev_action = action_idx
 
@@ -404,6 +370,106 @@ class RLPlayer(BasePlayer):
         if not self.alive or len(alive_players) == 1:
             if self.prev_state is not None and self.prev_action is not None:
                 # 最终状态设置为None表示游戏结束
-                self.agent.update(self.prev_state, self.prev_action, self.current_reward, None)
+                self.agent.update(self.prev_state, self.prev_action, self.current_reward, None, [], done=True, is_training=self.is_training)
                 self.prev_state = None
                 self.prev_action = None
+
+# ================== 2. 简单策略玩家 ==================
+
+class SimpleStrategyPlayer(BasePlayer):
+    """
+    使用最简单策略的玩家：
+    - 出牌阶段：只出真牌（目标牌或Joker），如果没有则不出牌
+    - 质疑阶段：总是质疑
+    """
+
+    def choose_cards_to_play(
+        self,
+        round_base_info: str,
+        round_action_info: str,
+        play_decision_info: str,
+    ) -> Tuple[Dict, str]:
+        # 选择所有符合目标牌的牌（目标牌或Joker）
+        valid_cards = [card for card in self.hand if card == self.target_card or card == 'Joker']
+        
+        # 从手牌中移除已出的牌
+        for card in valid_cards:
+            self.hand.remove(card)
+
+        result = {
+            "played_cards": valid_cards,
+            "behavior": "简单策略：只出真牌",
+            "play_reason": f"出{len(valid_cards)}张真牌",
+        }
+        return result, f"简单策略：出真牌 {valid_cards}"
+
+    def decide_challenge(
+        self,
+        round_base_info: str,
+        round_action_info: str,
+        challenge_decision_info: str,
+        challenging_player_performance: str,
+        extra_hint: str,
+    ) -> Tuple[Dict, str]:
+        # 总是质疑
+        result = {
+            "was_challenged": True,
+            "challenge_reason": "简单策略：总是质疑",
+        }
+        return result, "简单策略：总是质疑"
+    
+# ================== 3. smarter玩家 ==================
+
+class SmarterStrategyPlayer(BasePlayer):
+    """
+    使用更智能策略的玩家：
+    - 出牌阶段：优先出Joker，其次出目标牌
+    - 质疑阶段：以一个随机数作为阈值，超过阈值则质疑，否则不质疑
+    """
+    def choose_cards_to_play(
+        self,
+        round_base_info: str,
+        round_action_info: str,
+        play_decision_info: str,
+    ) -> Tuple[Dict, str]:
+        # 优先出Joker，其次出目标牌
+        valid_cards = [card for card in self.hand if card == 'Joker'] + [card for card in self.hand if card == self.target_card]
+        
+        # 从手牌中移除已出的牌
+        for card in valid_cards:
+            self.hand.remove(card)
+
+        result = {
+            "played_cards": valid_cards,
+            "behavior": "更智能策略：优先出Joker，其次出目标牌",
+            "play_reason": f"出{len(valid_cards)}张牌",
+        }
+        return result, f"更智能策略：出牌 {valid_cards}"
+    
+    def decide_challenge(
+        self,
+        round_base_info: str,
+        round_action_info: str,
+        challenge_decision_info: str,
+        challenging_player_performance: str,
+        extra_hint: str,
+    ) -> Tuple[Dict, str]:
+        # 以一个随机数作为阈值，超过阈值则质疑，否则不质疑
+        threshold = random.uniform(0, 1)
+        result = {
+            "was_challenged": threshold > 0.5,
+            "challenge_reason": "更智能策略：以随机数作为阈值，超过阈值则质疑，否则不质疑",
+        }
+        return result, f"更智能策略：{'质疑' if result['was_challenged'] else '不质疑'}"
+    
+# ================== 4. human-like玩家 ==================
+
+class HumanLikeStrategyPlayer(BasePlayer):
+    """
+    使用类人策略的玩家：
+    - 出牌阶段：读取当前游戏状态，根据游戏规则和玩家策略出牌
+    - 质疑阶段：根据当前游戏状态和玩家策略，判断是否质疑
+    - 具体来说：
+        1. 获取之前所有玩家的出牌记录，再结合自己的手牌，判断对方是否说谎
+        2. （还没想好）
+    """

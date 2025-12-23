@@ -6,9 +6,10 @@ from player import (
     BasePlayer,
     ManualPlayer,
     SimpleStrategyPlayer,
+    SmarterStrategyPlayer,
     RLPlayer,
     # MinimaxPlayer,
-    # QLearningPlayer,
+    # LinearQPlayer,
 )
 from game_record import GameRecord, PlayerInitialState
 
@@ -23,7 +24,7 @@ class Game:
                 {
                     "name": "Human1",
                     "type": "manual",      # "manual" / "simple" / "rl"
-                    "agent": RLAgent()     # 仅 rl 需要
+                    "agent": LinearQAgent, DQNAgent    # 仅 rl 需要
                     "is_training": True    # 仅 rl 需要
                 }
             showDetails: 是否打印详细对局信息
@@ -43,17 +44,21 @@ class Game:
                 player = ManualPlayer(name, showDetails)
             elif p_type == "simple":
                 player = SimpleStrategyPlayer(name, showDetails)
-            elif p_type == "rl":
+            elif p_type == "smarter":
+                player = SmarterStrategyPlayer(name, showDetails)
+            elif p_type == "LinearQ":
                 agent = config.get("agent")
-                if agent is None:
-                    raise ValueError("RL玩家需要提供agent实例")
+                is_training = config.get("is_training", True)
+                player = RLPlayer(name, showDetails, agent, is_training)
+            elif p_type == "dqn":
+                agent = config.get("agent")
                 is_training = config.get("is_training", True)
                 player = RLPlayer(name, showDetails, agent, is_training)
             # elif p_type == "minimax":
             #     depth = config.get("search_depth", 1)
             #     player = MinimaxPlayer(name, search_depth=depth)
-            # elif p_type == "qlearning":
-            #     player = QLearningPlayer(name)
+            # elif p_type == "LinearQ":
+            #     player = LinearQPlayer(name)
             else:
                 raise ValueError(f"未知玩家类型: {p_type}")
 
@@ -220,7 +225,8 @@ class Game:
             if shooter_idx is not None and self.players[shooter_idx].alive:
                 self.current_player_idx = shooter_idx
             else:
-                print(f"{self.last_shooter_name} 已死亡，顺延至下一个存活且有手牌的玩家")
+                if showDetails:
+                    print(f"{self.last_shooter_name} 已死亡，顺延至下一个存活且有手牌的玩家")
                 self.current_player_idx = self.find_next_player_with_cards(shooter_idx or 0)
         else:
             self.last_shooter_name = None
@@ -488,7 +494,7 @@ if __name__ == "__main__":
         {"name": "Human2", "type": "manual"}
         # {"name": "SimpleAI", "type": "simple"},
         # {"name": "MiniAI", "type": "minimax", "search_depth": 2},
-        # {"name": "QLearner", "type": "qlearning"},
+        # {"name": "QLearner", "type": "LinearQ"},
     ]
 
     print("游戏开始！玩家配置如下：")

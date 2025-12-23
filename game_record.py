@@ -247,6 +247,7 @@ class GameRecord:
         self.rounds: List[RoundRecord] = []
         self.winner: Optional[str] = None
         self.save_directory: str = "game_records"
+        self.all_cards_played: List[str] = []
         self.showDetails = showDetails
         
         # 确保保存目录存在
@@ -291,6 +292,8 @@ class GameRecord:
                 play_thinking=play_thinking
             )
             current_round.add_play_action(play_action)
+
+        
     
     def record_challenge(self, was_challenged: bool, reason: str = None, result: bool = None, challenge_thinking: str = None) -> None:
         """记录质疑信息"""

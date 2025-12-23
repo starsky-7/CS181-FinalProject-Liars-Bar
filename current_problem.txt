@@ -1,8 +1,27 @@
-1. rl_agent.py 中 load_model 函数没有被调用过，可能是因为目前并没有要用它的地方。
-在train的main中： trainer = RLTrainer(agent_config)创建了一个agent实例，q表和epsilon值存在trainer的成员变量中，
-train时不断更新q_table和epsilon，evaluate时也不需要重新加载qtable，而是直接调用traine的成员变量，epsilon则是通过
+1. LinearQ.py 中 load_model 函数没有被调用过，可能是因为目前并没有要用它的地方。
+在train的main中： trainer = RLTrainer(agent_config)创建了一个agent实例，model和epsilon值存在trainer的成员变量中，
+train时不断更新model和epsilon，evaluate时也不需要重新加载model，而是直接调用train的成员变量，epsilon则是通过
 istraining=false直接使其失效
 
 2. player.py 的reward计算函数 reflect 中：是否应该用“你”来判断玩家类别
 
+3. 在特征提取过程中：对于challenge很关键的一个特征是我要根据已打出的目标牌数以及我手中的目标牌数去判断对方是否说谎
 
+4. （fixed！！！！）在给update传参时：无法得知下一个状态对应的legalactions到底是属于出牌还是质疑，因为出牌和质疑并不是轮替进行的，
+    需要额外添加判断需要添加判断逻辑
+即    def update(self, state, action, reward, next_state, next_legal_actions, is_training=True):
+        这里的next_legal_actions如何确定
+此外，update并不需要override成两种，因为他记录的是当前最优策略后的Q值，
+            # 然后是采取最优策略后的下一个状态的Q值，而下一个状态的Q值又是下一个状态的最优策略后的Q值，
+            # 记录值即可，无需知道动作
+综上： 我的工作是如何确定下一个动作nextlegelactions处于哪一类
+
+5. utils和agent中判断是否为challengestate用的是is_challenge_state = len(next_state) > 9 # magic number！！！！
+   如果后续state的数量改变，9也要变
+
+6. 质疑相关特征那里：在非质疑状态不应该简单的填充0，想想应该填什么，之前几次的平均值？
+
+7. 当前结果：
+   smarter + smarter 训5000轮 70-80%胜率 7分钟
+   simple + smarter 训500轮  92-96%胜率 2分钟
+   simple + smarter + samrter 训400轮 80%胜率 2分钟 注意：500轮已经是过拟合状态，只有50%胜率
