@@ -34,7 +34,7 @@ class RLTrainer:
             
             # 保存模型（每100个回合）
             if (episode + 1) % 100 == 0:
-                self.agent.save_model(f"rl_models/agent_episode_{episode + 1}.pkl")
+                # self.agent.save_model(f"rl_models/agent_episode_{episode + 1}.pkl")
                 print(f"Model saved at episode {episode + 1}")
                 self.agent.print_q_table_summary(output_file=f"q_table_summary.txt")
     
@@ -88,7 +88,7 @@ if __name__ == "__main__":
     trainer = RLTrainer(agent_config)
     
     # 训练代理
-    trainer.train(num_episodes=1000)
+    trainer.train(num_episodes=50000)
     
     # 评估代理
     results = trainer.evaluate(num_games=1000)

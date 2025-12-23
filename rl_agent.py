@@ -9,11 +9,11 @@ class RLAgent:
     
     def __init__(
         self,
-        learning_rate: float = 0.1,
+        learning_rate: float = 0.5,
         discount_factor: float = 0.95,
         epsilon: float = 0.1,
-        epsilon_decay: float = 0.999,
-        epsilon_min: float = 0.01
+        epsilon_decay: float = 0.9,
+        epsilon_min: float = 0.005
     ):
         self.lr = learning_rate
         self.gamma = discount_factor

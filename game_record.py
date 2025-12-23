@@ -352,7 +352,7 @@ class GameRecord:
 
     def auto_save(self) -> None:
         """自动保存当前游戏记录到文件"""
-        file_path = os.path.join(self.save_directory, f"{self.game_id}.json")
-        with open(file_path, "w", encoding="utf-8") as file:
-            json.dump(self.to_dict(), file, indent=4, ensure_ascii=False)
-        print(f"游戏记录已自动保存至 {file_path}")
+        # file_path = os.path.join(self.save_directory, f"{self.game_id}.json")
+        # with open(file_path, "w", encoding="utf-8") as file:
+        #     json.dump(self.to_dict(), file, indent=4, ensure_ascii=False)
+        # print(f"游戏记录已自动保存至 {file_path}")
