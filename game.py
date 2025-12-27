@@ -1,6 +1,8 @@
 import random
 from typing import List, Optional, Dict
 from game_record import GameRecord, PlayerInitialState
+from LinearQAgent import LinearQAgent
+
 
 from player import (
     BasePlayer,
@@ -8,7 +10,7 @@ from player import (
     SimpleStrategyPlayer,
     SmarterStrategyPlayer,
     RLPlayer,
-    # MinimaxPlayer,
+    MinimaxPlayer,
     # LinearQPlayer,
 )
 from game_record import GameRecord, PlayerInitialState
@@ -36,10 +38,6 @@ class Game:
             p_type = config.get("type", "manual")
             name = config["name"]
 
-            # 修改：不再支持 LLM 玩家，移除 LLM 支持
-            # if p_type == "llm":
-            #     model = config.get("model", "deepseek-r1")  # LLM 不再使用，删除该行
-            #     player = LLMPlayer(name, model)  # LLMPlayer 不再使用，删除该行
             if p_type == "manual":
                 player = ManualPlayer(name, showDetails)
             elif p_type == "simple":
@@ -54,9 +52,8 @@ class Game:
                 agent = config.get("agent")
                 is_training = config.get("is_training", True)
                 player = RLPlayer(name, showDetails, agent, is_training)
-            # elif p_type == "minimax":
-            #     depth = config.get("search_depth", 1)
-            #     player = MinimaxPlayer(name, search_depth=depth)
+            elif p_type == "minimax":
+                player = MinimaxPlayer(name, showDetails)
             # elif p_type == "LinearQ":
             #     player = LinearQPlayer(name)
             else:
@@ -490,11 +487,13 @@ class Game:
 if __name__ == "__main__":
     # 示例：2 个手动玩家
     player_configs = [
-        {"name": "Human1", "type": "manual"},
-        {"name": "Human2", "type": "manual"}
-        # {"name": "SimpleAI", "type": "simple"},
-        # {"name": "MiniAI", "type": "minimax", "search_depth": 2},
-        # {"name": "QLearner", "type": "LinearQ"},
+    {"name": "MiniAI", "type": "minimax"},
+    {
+        "name": "QLearner",
+        "type": "LinearQ",         
+        "agent": LinearQAgent(),   
+        "is_training": False      
+    }
     ]
 
     print("游戏开始！玩家配置如下：")

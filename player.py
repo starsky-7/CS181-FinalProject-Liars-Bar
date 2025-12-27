@@ -1,5 +1,3 @@
-# player.py
-
 import random
 import numpy as np
 from LinearQAgent import LinearQAgent
@@ -10,6 +8,8 @@ from dataclasses import dataclass
 from typing import List, Dict, Tuple, Optional
 import itertools
 import math
+from minimaxAgent import GameState, minimax_decision, extract_opponent_hand_size, infer_opponent_name
+
 
 
 class BasePlayer(ABC):
@@ -473,3 +473,52 @@ class HumanLikeStrategyPlayer(BasePlayer):
         1. 获取之前所有玩家的出牌记录，再结合自己的手牌，判断对方是否说谎
         2. （还没想好）
     """
+    
+# ================== 5. Minimax玩家 ==================
+class MinimaxPlayer(BasePlayer):
+    """
+    使用 Minimax 决策策略的玩家
+    """
+
+    def choose_cards_to_play(
+        self,
+        round_base_info: str,
+        round_action_info: str,
+        play_decision_info: str,
+    ) -> Tuple[Dict, str]:
+        opponent_name = infer_opponent_name(round_base_info, self.name)
+        opponent_hand_size = extract_opponent_hand_size(round_action_info, opponent_name)
+
+        state = GameState(
+            hand=self.hand,
+            opponent_hand_size=opponent_hand_size,
+            target_card=self.target_card,
+            is_my_turn=True,
+            depth=3
+        )
+
+        best_action = minimax_decision(state)
+
+        for card in best_action:
+            self.hand.remove(card)
+
+        result = {
+            "played_cards": best_action,
+            "behavior": "Minimax决策",
+            "play_reason": "模拟对局后选择期望最高出牌"
+        }
+        return result, f"Minimax选择出牌：{best_action}"
+
+    def decide_challenge(
+        self,
+        round_base_info: str,
+        round_action_info: str,
+        challenge_decision_info: str,
+        challenging_player_performance: str,
+        extra_hint: str,
+    ) -> Tuple[Dict, str]:
+        result = {
+            "was_challenged": True,
+            "challenge_reason": "Minimax策略：默认质疑（可改进）",
+        }
+        return result, "Minimax策略：默认质疑"
