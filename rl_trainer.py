@@ -5,6 +5,21 @@ from LinearQAgent import LinearQAgent
 from DQNAgent import DQNAgent
 from tqdm import tqdm
 
+#from tuning_results.best_config import BEST_CONFIG
+
+agent_config = {
+    "learning_rate": 0.000626,
+    "discount_factor": 0.95,
+    "epsilon": 1.0,
+    "epsilon_decay": 0.99,
+    "epsilon_min": 0.01,
+    "batch_size": 128,
+    "buffer_size": 20000,
+    "warmup_steps": 500,
+    "target_update_every": 500,
+}
+agent_config["num_episodes"] = 5000  # 调整训练回合数
+
 class RLTrainer:
     """
     强化学习训练器
