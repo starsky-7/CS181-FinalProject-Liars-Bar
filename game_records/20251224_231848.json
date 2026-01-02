@@ -1,0 +1,2128 @@
+{
+    "game_id": "20251224_231848",
+    "player_names": [
+        "RL_Player",
+        "Opponent1",
+        "Opponent2",
+        "Opponent3"
+    ],
+    "rounds": [
+        {
+            "round_id": 1,
+            "target_card": "A",
+            "round_players": [
+                "RL_Player",
+                "Opponent1",
+                "Opponent2",
+                "Opponent3"
+            ],
+            "starting_player": "Opponent3",
+            "player_initial_states": [
+                {
+                    "player_name": "RL_Player",
+                    "bullet_position": 5,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "Q",
+                        "K",
+                        "A",
+                        "Q",
+                        "K"
+                    ]
+                },
+                {
+                    "player_name": "Opponent1",
+                    "bullet_position": 2,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "A",
+                        "Q",
+                        "A",
+                        "A",
+                        "A"
+                    ]
+                },
+                {
+                    "player_name": "Opponent2",
+                    "bullet_position": 5,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "Q",
+                        "K",
+                        "Joker",
+                        "K",
+                        "A"
+                    ]
+                },
+                {
+                    "player_name": "Opponent3",
+                    "bullet_position": 1,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "K",
+                        "Joker",
+                        "Q",
+                        "K",
+                        "Q"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "RL_Player": {
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent1": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent2": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent3": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "Opponent3",
+                    "played_cards": [
+                        "K",
+                        "Q",
+                        "K",
+                        "Q"
+                    ],
+                    "remaining_cards": [
+                        "Joker"
+                    ],
+                    "play_reason": "出4张牌，下家质疑概率0.00，探索率0.53",
+                    "behavior": "类人策略：基于下家质疑概率决策",
+                    "next_player": "RL_Player",
+                    "was_challenged": false,
+                    "challenge_reason": "RL决策",
+                    "challenge_result": null,
+                    "play_thinking": "类人策略：出牌 ['K', 'Q', 'K', 'Q']",
+                    "challenge_thinking": "RL选择不质疑"
+                },
+                {
+                    "player_name": "RL_Player",
+                    "played_cards": [
+                        "Q",
+                        "K",
+                        "K",
+                        "A"
+                    ],
+                    "remaining_cards": [
+                        "Q"
+                    ],
+                    "play_reason": "RL决策",
+                    "behavior": "RL出牌",
+                    "next_player": "Opponent1",
+                    "was_challenged": true,
+                    "challenge_reason": "类人策略：基于上家出假牌概率0.00决策，探索率0.55",
+                    "challenge_result": true,
+                    "play_thinking": "RL选择出牌: ['Q', 'K', 'K', 'A']",
+                    "challenge_thinking": "类人策略：质疑"
+                }
+            ],
+            "round_result": {
+                "shooter_name": "RL_Player",
+                "bullet_hit": false
+            }
+        },
+        {
+            "round_id": 2,
+            "target_card": "A",
+            "round_players": [
+                "RL_Player",
+                "Opponent1",
+                "Opponent2",
+                "Opponent3"
+            ],
+            "starting_player": "RL_Player",
+            "player_initial_states": [
+                {
+                    "player_name": "RL_Player",
+                    "bullet_position": 5,
+                    "current_gun_position": 1,
+                    "initial_hand": [
+                        "K",
+                        "K",
+                        "K",
+                        "Q",
+                        "A"
+                    ]
+                },
+                {
+                    "player_name": "Opponent1",
+                    "bullet_position": 2,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "K",
+                        "K",
+                        "Joker",
+                        "Q",
+                        "A"
+                    ]
+                },
+                {
+                    "player_name": "Opponent2",
+                    "bullet_position": 5,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "Q",
+                        "Q",
+                        "Q",
+                        "A",
+                        "A"
+                    ]
+                },
+                {
+                    "player_name": "Opponent3",
+                    "bullet_position": 1,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "K",
+                        "Q",
+                        "A",
+                        "A",
+                        "Joker"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "RL_Player": {
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent1": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent2": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent3": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "RL_Player",
+                    "played_cards": [
+                        "K",
+                        "K"
+                    ],
+                    "remaining_cards": [
+                        "K",
+                        "Q",
+                        "A"
+                    ],
+                    "play_reason": "RL决策",
+                    "behavior": "RL出牌",
+                    "next_player": "Opponent1",
+                    "was_challenged": true,
+                    "challenge_reason": "类人策略：基于上家出假牌概率0.00决策，探索率0.55",
+                    "challenge_result": true,
+                    "play_thinking": "RL选择出牌: ['K', 'K']",
+                    "challenge_thinking": "类人策略：质疑"
+                }
+            ],
+            "round_result": {
+                "shooter_name": "RL_Player",
+                "bullet_hit": false
+            }
+        },
+        {
+            "round_id": 3,
+            "target_card": "Q",
+            "round_players": [
+                "RL_Player",
+                "Opponent1",
+                "Opponent2",
+                "Opponent3"
+            ],
+            "starting_player": "RL_Player",
+            "player_initial_states": [
+                {
+                    "player_name": "RL_Player",
+                    "bullet_position": 5,
+                    "current_gun_position": 2,
+                    "initial_hand": [
+                        "K",
+                        "Q",
+                        "Joker",
+                        "K",
+                        "Q"
+                    ]
+                },
+                {
+                    "player_name": "Opponent1",
+                    "bullet_position": 2,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "A",
+                        "Joker",
+                        "A",
+                        "Q",
+                        "K"
+                    ]
+                },
+                {
+                    "player_name": "Opponent2",
+                    "bullet_position": 5,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "A",
+                        "Q",
+                        "A",
+                        "Q",
+                        "A"
+                    ]
+                },
+                {
+                    "player_name": "Opponent3",
+                    "bullet_position": 1,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "K",
+                        "A",
+                        "Q",
+                        "K",
+                        "K"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "RL_Player": {
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent1": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent2": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent3": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "RL_Player",
+                    "played_cards": [
+                        "Q",
+                        "Q"
+                    ],
+                    "remaining_cards": [
+                        "K",
+                        "Joker",
+                        "K"
+                    ],
+                    "play_reason": "RL决策",
+                    "behavior": "RL出牌",
+                    "next_player": "Opponent1",
+                    "was_challenged": false,
+                    "challenge_reason": "类人策略：基于上家出假牌概率0.00决策，探索率0.55",
+                    "challenge_result": null,
+                    "play_thinking": "RL选择出牌: ['Q', 'Q']",
+                    "challenge_thinking": "类人策略：不质疑"
+                },
+                {
+                    "player_name": "Opponent1",
+                    "played_cards": [
+                        "Joker",
+                        "Q"
+                    ],
+                    "remaining_cards": [
+                        "A",
+                        "A",
+                        "K"
+                    ],
+                    "play_reason": "出2张牌，下家质疑概率0.00，探索率0.53",
+                    "behavior": "类人策略：基于下家质疑概率决策",
+                    "next_player": "Opponent2",
+                    "was_challenged": false,
+                    "challenge_reason": "类人策略：基于上家出假牌概率0.00决策，探索率0.55",
+                    "challenge_result": null,
+                    "play_thinking": "类人策略：出牌 ['Joker', 'Q']",
+                    "challenge_thinking": "类人策略：不质疑"
+                },
+                {
+                    "player_name": "Opponent2",
+                    "played_cards": [
+                        "Q",
+                        "Q"
+                    ],
+                    "remaining_cards": [
+                        "A",
+                        "A",
+                        "A"
+                    ],
+                    "play_reason": "出2张牌，下家质疑概率0.00，探索率0.53",
+                    "behavior": "类人策略：基于下家质疑概率决策",
+                    "next_player": "Opponent3",
+                    "was_challenged": false,
+                    "challenge_reason": "类人策略：基于上家出假牌概率0.00决策，探索率0.53",
+                    "challenge_result": null,
+                    "play_thinking": "类人策略：出牌 ['Q', 'Q']",
+                    "challenge_thinking": "类人策略：不质疑"
+                },
+                {
+                    "player_name": "Opponent3",
+                    "played_cards": [
+                        "K",
+                        "A",
+                        "K",
+                        "K"
+                    ],
+                    "remaining_cards": [
+                        "Q"
+                    ],
+                    "play_reason": "出4张牌，下家质疑概率0.00，探索率0.50",
+                    "behavior": "类人策略：基于下家质疑概率决策",
+                    "next_player": "RL_Player",
+                    "was_challenged": false,
+                    "challenge_reason": "RL决策",
+                    "challenge_result": null,
+                    "play_thinking": "类人策略：出牌 ['K', 'A', 'K', 'K']",
+                    "challenge_thinking": "RL选择不质疑"
+                },
+                {
+                    "player_name": "RL_Player",
+                    "played_cards": [],
+                    "remaining_cards": [
+                        "K",
+                        "Joker",
+                        "K"
+                    ],
+                    "play_reason": "RL决策",
+                    "behavior": "RL出牌",
+                    "next_player": "Opponent1",
+                    "was_challenged": true,
+                    "challenge_reason": "类人策略：基于上家出假牌概率0.00决策，探索率0.53",
+                    "challenge_result": false,
+                    "play_thinking": "RL选择出牌: []",
+                    "challenge_thinking": "类人策略：质疑"
+                }
+            ],
+            "round_result": {
+                "shooter_name": "Opponent1",
+                "bullet_hit": false
+            }
+        },
+        {
+            "round_id": 4,
+            "target_card": "Q",
+            "round_players": [
+                "RL_Player",
+                "Opponent1",
+                "Opponent2",
+                "Opponent3"
+            ],
+            "starting_player": "Opponent1",
+            "player_initial_states": [
+                {
+                    "player_name": "RL_Player",
+                    "bullet_position": 5,
+                    "current_gun_position": 2,
+                    "initial_hand": [
+                        "A",
+                        "Q",
+                        "Joker",
+                        "Q",
+                        "K"
+                    ]
+                },
+                {
+                    "player_name": "Opponent1",
+                    "bullet_position": 2,
+                    "current_gun_position": 1,
+                    "initial_hand": [
+                        "Q",
+                        "Q",
+                        "K",
+                        "K",
+                        "K"
+                    ]
+                },
+                {
+                    "player_name": "Opponent2",
+                    "bullet_position": 5,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "A",
+                        "A",
+                        "Q",
+                        "K",
+                        "Joker"
+                    ]
+                },
+                {
+                    "player_name": "Opponent3",
+                    "bullet_position": 1,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "Q",
+                        "A",
+                        "K",
+                        "A",
+                        "A"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "RL_Player": {
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent1": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent2": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent3": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "Opponent1",
+                    "played_cards": [
+                        "Q",
+                        "Q"
+                    ],
+                    "remaining_cards": [
+                        "K",
+                        "K",
+                        "K"
+                    ],
+                    "play_reason": "出2张牌，下家质疑概率0.00，探索率0.50",
+                    "behavior": "类人策略：基于下家质疑概率决策",
+                    "next_player": "Opponent2",
+                    "was_challenged": false,
+                    "challenge_reason": "类人策略：基于上家出假牌概率0.00决策，探索率0.53",
+                    "challenge_result": null,
+                    "play_thinking": "类人策略：出牌 ['Q', 'Q']",
+                    "challenge_thinking": "类人策略：不质疑"
+                },
+                {
+                    "player_name": "Opponent2",
+                    "played_cards": [
+                        "Q",
+                        "Joker"
+                    ],
+                    "remaining_cards": [
+                        "A",
+                        "A",
+                        "K"
+                    ],
+                    "play_reason": "出2张牌，下家质疑概率0.00，探索率0.50",
+                    "behavior": "类人策略：基于下家质疑概率决策",
+                    "next_player": "Opponent3",
+                    "was_challenged": true,
+                    "challenge_reason": "类人策略：基于上家出假牌概率0.00决策，探索率0.50",
+                    "challenge_result": false,
+                    "play_thinking": "类人策略：出牌 ['Q', 'Joker']",
+                    "challenge_thinking": "类人策略：质疑"
+                }
+            ],
+            "round_result": {
+                "shooter_name": "Opponent3",
+                "bullet_hit": false
+            }
+        },
+        {
+            "round_id": 5,
+            "target_card": "A",
+            "round_players": [
+                "RL_Player",
+                "Opponent1",
+                "Opponent2",
+                "Opponent3"
+            ],
+            "starting_player": "Opponent3",
+            "player_initial_states": [
+                {
+                    "player_name": "RL_Player",
+                    "bullet_position": 5,
+                    "current_gun_position": 2,
+                    "initial_hand": [
+                        "Q",
+                        "A",
+                        "K",
+                        "A",
+                        "Q"
+                    ]
+                },
+                {
+                    "player_name": "Opponent1",
+                    "bullet_position": 2,
+                    "current_gun_position": 1,
+                    "initial_hand": [
+                        "Q",
+                        "K",
+                        "Q",
+                        "Joker",
+                        "K"
+                    ]
+                },
+                {
+                    "player_name": "Opponent2",
+                    "bullet_position": 5,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "Q",
+                        "A",
+                        "A",
+                        "Q",
+                        "A"
+                    ]
+                },
+                {
+                    "player_name": "Opponent3",
+                    "bullet_position": 1,
+                    "current_gun_position": 1,
+                    "initial_hand": [
+                        "K",
+                        "Joker",
+                        "A",
+                        "K",
+                        "K"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "RL_Player": {
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent1": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent2": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent3": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "Opponent3",
+                    "played_cards": [
+                        "K",
+                        "K",
+                        "K"
+                    ],
+                    "remaining_cards": [
+                        "Joker",
+                        "A"
+                    ],
+                    "play_reason": "出3张牌，下家质疑概率0.00，探索率0.47",
+                    "behavior": "类人策略：基于下家质疑概率决策",
+                    "next_player": "RL_Player",
+                    "was_challenged": false,
+                    "challenge_reason": "RL决策",
+                    "challenge_result": null,
+                    "play_thinking": "类人策略：出牌 ['K', 'K', 'K']",
+                    "challenge_thinking": "RL选择不质疑"
+                },
+                {
+                    "player_name": "RL_Player",
+                    "played_cards": [],
+                    "remaining_cards": [
+                        "Q",
+                        "A",
+                        "K",
+                        "A",
+                        "Q"
+                    ],
+                    "play_reason": "RL决策",
+                    "behavior": "RL出牌",
+                    "next_player": "Opponent1",
+                    "was_challenged": true,
+                    "challenge_reason": "类人策略：基于上家出假牌概率0.00决策，探索率0.50",
+                    "challenge_result": false,
+                    "play_thinking": "RL选择出牌: []",
+                    "challenge_thinking": "类人策略：质疑"
+                }
+            ],
+            "round_result": {
+                "shooter_name": "Opponent1",
+                "bullet_hit": false
+            }
+        },
+        {
+            "round_id": 6,
+            "target_card": "K",
+            "round_players": [
+                "RL_Player",
+                "Opponent1",
+                "Opponent2",
+                "Opponent3"
+            ],
+            "starting_player": "Opponent1",
+            "player_initial_states": [
+                {
+                    "player_name": "RL_Player",
+                    "bullet_position": 5,
+                    "current_gun_position": 2,
+                    "initial_hand": [
+                        "A",
+                        "Joker",
+                        "A",
+                        "Q",
+                        "A"
+                    ]
+                },
+                {
+                    "player_name": "Opponent1",
+                    "bullet_position": 2,
+                    "current_gun_position": 2,
+                    "initial_hand": [
+                        "Joker",
+                        "K",
+                        "K",
+                        "A",
+                        "Q"
+                    ]
+                },
+                {
+                    "player_name": "Opponent2",
+                    "bullet_position": 5,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "K",
+                        "A",
+                        "K",
+                        "Q",
+                        "Q"
+                    ]
+                },
+                {
+                    "player_name": "Opponent3",
+                    "bullet_position": 1,
+                    "current_gun_position": 1,
+                    "initial_hand": [
+                        "A",
+                        "K",
+                        "Q",
+                        "Q",
+                        "K"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "RL_Player": {
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent1": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent2": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent3": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "Opponent1",
+                    "played_cards": [
+                        "A",
+                        "Q"
+                    ],
+                    "remaining_cards": [
+                        "Joker",
+                        "K",
+                        "K"
+                    ],
+                    "play_reason": "出2张牌，下家质疑概率0.00，探索率0.47",
+                    "behavior": "类人策略：基于下家质疑概率决策",
+                    "next_player": "Opponent2",
+                    "was_challenged": true,
+                    "challenge_reason": "类人策略：基于上家出假牌概率0.00决策，探索率0.50",
+                    "challenge_result": true,
+                    "play_thinking": "类人策略：出牌 ['A', 'Q']",
+                    "challenge_thinking": "类人策略：质疑"
+                }
+            ],
+            "round_result": {
+                "shooter_name": "Opponent1",
+                "bullet_hit": true
+            }
+        },
+        {
+            "round_id": 7,
+            "target_card": "A",
+            "round_players": [
+                "RL_Player",
+                "Opponent2",
+                "Opponent3"
+            ],
+            "starting_player": "Opponent2",
+            "player_initial_states": [
+                {
+                    "player_name": "RL_Player",
+                    "bullet_position": 5,
+                    "current_gun_position": 2,
+                    "initial_hand": [
+                        "A",
+                        "A",
+                        "K",
+                        "K",
+                        "Joker"
+                    ]
+                },
+                {
+                    "player_name": "Opponent2",
+                    "bullet_position": 5,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "A",
+                        "Q",
+                        "Q",
+                        "Q",
+                        "K"
+                    ]
+                },
+                {
+                    "player_name": "Opponent3",
+                    "bullet_position": 1,
+                    "current_gun_position": 1,
+                    "initial_hand": [
+                        "Q",
+                        "A",
+                        "A",
+                        "K",
+                        "Joker"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "RL_Player": {
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent1": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent2": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent3": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "Opponent2",
+                    "played_cards": [
+                        "A"
+                    ],
+                    "remaining_cards": [
+                        "Q",
+                        "Q",
+                        "Q",
+                        "K"
+                    ],
+                    "play_reason": "出1张牌，下家质疑概率0.00，探索率0.47",
+                    "behavior": "类人策略：基于下家质疑概率决策",
+                    "next_player": "Opponent3",
+                    "was_challenged": true,
+                    "challenge_reason": "类人策略：基于上家出假牌概率0.00决策，探索率0.47",
+                    "challenge_result": false,
+                    "play_thinking": "类人策略：出牌 ['A']",
+                    "challenge_thinking": "类人策略：质疑"
+                }
+            ],
+            "round_result": {
+                "shooter_name": "Opponent3",
+                "bullet_hit": true
+            }
+        },
+        {
+            "round_id": 8,
+            "target_card": "K",
+            "round_players": [
+                "RL_Player",
+                "Opponent2"
+            ],
+            "starting_player": "RL_Player",
+            "player_initial_states": [
+                {
+                    "player_name": "RL_Player",
+                    "bullet_position": 5,
+                    "current_gun_position": 2,
+                    "initial_hand": [
+                        "K",
+                        "Q",
+                        "Q",
+                        "Q",
+                        "K"
+                    ]
+                },
+                {
+                    "player_name": "Opponent2",
+                    "bullet_position": 5,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "A",
+                        "K",
+                        "Joker",
+                        "Q",
+                        "Joker"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "RL_Player": {
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent1": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent2": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent3": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "RL_Player",
+                    "played_cards": [
+                        "Q",
+                        "Q",
+                        "Q",
+                        "K"
+                    ],
+                    "remaining_cards": [
+                        "K"
+                    ],
+                    "play_reason": "RL决策",
+                    "behavior": "RL出牌",
+                    "next_player": "Opponent2",
+                    "was_challenged": false,
+                    "challenge_reason": "类人策略：基于上家出假牌概率0.00决策，探索率0.47",
+                    "challenge_result": null,
+                    "play_thinking": "RL选择出牌: ['Q', 'Q', 'Q', 'K']",
+                    "challenge_thinking": "类人策略：不质疑"
+                },
+                {
+                    "player_name": "Opponent2",
+                    "played_cards": [
+                        "K",
+                        "Joker",
+                        "Joker"
+                    ],
+                    "remaining_cards": [
+                        "A",
+                        "Q"
+                    ],
+                    "play_reason": "出3张牌，下家质疑概率0.00，探索率0.45",
+                    "behavior": "类人策略：基于下家质疑概率决策",
+                    "next_player": "RL_Player",
+                    "was_challenged": false,
+                    "challenge_reason": "RL决策",
+                    "challenge_result": null,
+                    "play_thinking": "类人策略：出牌 ['K', 'Joker', 'Joker']",
+                    "challenge_thinking": "RL选择不质疑"
+                },
+                {
+                    "player_name": "RL_Player",
+                    "played_cards": [
+                        "K"
+                    ],
+                    "remaining_cards": [],
+                    "play_reason": "RL决策",
+                    "behavior": "RL出牌",
+                    "next_player": "Opponent2",
+                    "was_challenged": true,
+                    "challenge_reason": "类人策略：基于上家出假牌概率0.00决策，探索率0.45",
+                    "challenge_result": false,
+                    "play_thinking": "RL选择出牌: ['K']",
+                    "challenge_thinking": "类人策略：质疑"
+                }
+            ],
+            "round_result": {
+                "shooter_name": "Opponent2",
+                "bullet_hit": false
+            }
+        },
+        {
+            "round_id": 9,
+            "target_card": "Q",
+            "round_players": [
+                "RL_Player",
+                "Opponent2"
+            ],
+            "starting_player": "Opponent2",
+            "player_initial_states": [
+                {
+                    "player_name": "RL_Player",
+                    "bullet_position": 5,
+                    "current_gun_position": 2,
+                    "initial_hand": [
+                        "Q",
+                        "Q",
+                        "Q",
+                        "K",
+                        "A"
+                    ]
+                },
+                {
+                    "player_name": "Opponent2",
+                    "bullet_position": 5,
+                    "current_gun_position": 1,
+                    "initial_hand": [
+                        "A",
+                        "Joker",
+                        "A",
+                        "K",
+                        "Q"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "RL_Player": {
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent1": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent2": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent3": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "Opponent2",
+                    "played_cards": [
+                        "A",
+                        "A",
+                        "K"
+                    ],
+                    "remaining_cards": [
+                        "Joker",
+                        "Q"
+                    ],
+                    "play_reason": "出3张牌，下家质疑概率0.00，探索率0.42",
+                    "behavior": "类人策略：基于下家质疑概率决策",
+                    "next_player": "RL_Player",
+                    "was_challenged": false,
+                    "challenge_reason": "RL决策",
+                    "challenge_result": null,
+                    "play_thinking": "类人策略：出牌 ['A', 'A', 'K']",
+                    "challenge_thinking": "RL选择不质疑"
+                },
+                {
+                    "player_name": "RL_Player",
+                    "played_cards": [
+                        "K"
+                    ],
+                    "remaining_cards": [
+                        "Q",
+                        "Q",
+                        "Q",
+                        "A"
+                    ],
+                    "play_reason": "RL决策",
+                    "behavior": "RL出牌",
+                    "next_player": "Opponent2",
+                    "was_challenged": true,
+                    "challenge_reason": "类人策略：基于上家出假牌概率0.00决策，探索率0.42",
+                    "challenge_result": true,
+                    "play_thinking": "RL选择出牌: ['K']",
+                    "challenge_thinking": "类人策略：质疑"
+                }
+            ],
+            "round_result": {
+                "shooter_name": "RL_Player",
+                "bullet_hit": false
+            }
+        },
+        {
+            "round_id": 10,
+            "target_card": "K",
+            "round_players": [
+                "RL_Player",
+                "Opponent2"
+            ],
+            "starting_player": "RL_Player",
+            "player_initial_states": [
+                {
+                    "player_name": "RL_Player",
+                    "bullet_position": 5,
+                    "current_gun_position": 3,
+                    "initial_hand": [
+                        "A",
+                        "K",
+                        "K",
+                        "Joker",
+                        "Q"
+                    ]
+                },
+                {
+                    "player_name": "Opponent2",
+                    "bullet_position": 5,
+                    "current_gun_position": 1,
+                    "initial_hand": [
+                        "A",
+                        "A",
+                        "Q",
+                        "Joker",
+                        "K"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "RL_Player": {
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent1": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent2": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent3": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "RL_Player",
+                    "played_cards": [
+                        "Joker"
+                    ],
+                    "remaining_cards": [
+                        "A",
+                        "K",
+                        "K",
+                        "Q"
+                    ],
+                    "play_reason": "RL决策",
+                    "behavior": "RL出牌",
+                    "next_player": "Opponent2",
+                    "was_challenged": false,
+                    "challenge_reason": "类人策略：基于上家出假牌概率0.00决策，探索率0.42",
+                    "challenge_result": null,
+                    "play_thinking": "RL选择出牌: ['Joker']",
+                    "challenge_thinking": "类人策略：不质疑"
+                },
+                {
+                    "player_name": "Opponent2",
+                    "played_cards": [
+                        "Joker",
+                        "K"
+                    ],
+                    "remaining_cards": [
+                        "A",
+                        "A",
+                        "Q"
+                    ],
+                    "play_reason": "出2张牌，下家质疑概率0.00，探索率0.40",
+                    "behavior": "类人策略：基于下家质疑概率决策",
+                    "next_player": "RL_Player",
+                    "was_challenged": false,
+                    "challenge_reason": "RL决策",
+                    "challenge_result": null,
+                    "play_thinking": "类人策略：出牌 ['Joker', 'K']",
+                    "challenge_thinking": "RL选择不质疑"
+                },
+                {
+                    "player_name": "RL_Player",
+                    "played_cards": [],
+                    "remaining_cards": [
+                        "A",
+                        "K",
+                        "K",
+                        "Q"
+                    ],
+                    "play_reason": "RL决策",
+                    "behavior": "RL出牌",
+                    "next_player": "Opponent2",
+                    "was_challenged": false,
+                    "challenge_reason": "类人策略：基于上家出假牌概率0.00决策，探索率0.40",
+                    "challenge_result": null,
+                    "play_thinking": "RL选择出牌: []",
+                    "challenge_thinking": "类人策略：不质疑"
+                },
+                {
+                    "player_name": "Opponent2",
+                    "played_cards": [],
+                    "remaining_cards": [
+                        "A",
+                        "A",
+                        "Q"
+                    ],
+                    "play_reason": "出0张牌，下家质疑概率0.00，探索率0.38",
+                    "behavior": "类人策略：基于下家质疑概率决策",
+                    "next_player": "RL_Player",
+                    "was_challenged": false,
+                    "challenge_reason": "RL决策",
+                    "challenge_result": null,
+                    "play_thinking": "类人策略：出牌 []",
+                    "challenge_thinking": "RL选择不质疑"
+                },
+                {
+                    "player_name": "RL_Player",
+                    "played_cards": [],
+                    "remaining_cards": [
+                        "A",
+                        "K",
+                        "K",
+                        "Q"
+                    ],
+                    "play_reason": "RL决策",
+                    "behavior": "RL出牌",
+                    "next_player": "Opponent2",
+                    "was_challenged": false,
+                    "challenge_reason": "类人策略：基于上家出假牌概率0.00决策，探索率0.38",
+                    "challenge_result": null,
+                    "play_thinking": "RL选择出牌: []",
+                    "challenge_thinking": "类人策略：不质疑"
+                },
+                {
+                    "player_name": "Opponent2",
+                    "played_cards": [],
+                    "remaining_cards": [
+                        "A",
+                        "A",
+                        "Q"
+                    ],
+                    "play_reason": "出0张牌，下家质疑概率0.00，探索率0.35",
+                    "behavior": "类人策略：基于下家质疑概率决策",
+                    "next_player": "RL_Player",
+                    "was_challenged": false,
+                    "challenge_reason": "RL决策",
+                    "challenge_result": null,
+                    "play_thinking": "类人策略：出牌 []",
+                    "challenge_thinking": "RL选择不质疑"
+                },
+                {
+                    "player_name": "RL_Player",
+                    "played_cards": [],
+                    "remaining_cards": [
+                        "A",
+                        "K",
+                        "K",
+                        "Q"
+                    ],
+                    "play_reason": "RL决策",
+                    "behavior": "RL出牌",
+                    "next_player": "Opponent2",
+                    "was_challenged": true,
+                    "challenge_reason": "类人策略：基于上家出假牌概率0.00决策，探索率0.35",
+                    "challenge_result": false,
+                    "play_thinking": "RL选择出牌: []",
+                    "challenge_thinking": "类人策略：质疑"
+                }
+            ],
+            "round_result": {
+                "shooter_name": "Opponent2",
+                "bullet_hit": false
+            }
+        },
+        {
+            "round_id": 11,
+            "target_card": "A",
+            "round_players": [
+                "RL_Player",
+                "Opponent2"
+            ],
+            "starting_player": "Opponent2",
+            "player_initial_states": [
+                {
+                    "player_name": "RL_Player",
+                    "bullet_position": 5,
+                    "current_gun_position": 3,
+                    "initial_hand": [
+                        "A",
+                        "A",
+                        "K",
+                        "Joker",
+                        "A"
+                    ]
+                },
+                {
+                    "player_name": "Opponent2",
+                    "bullet_position": 5,
+                    "current_gun_position": 2,
+                    "initial_hand": [
+                        "Joker",
+                        "K",
+                        "A",
+                        "K",
+                        "A"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "RL_Player": {
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent1": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent2": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent3": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "Opponent2",
+                    "played_cards": [
+                        "Joker",
+                        "A",
+                        "A"
+                    ],
+                    "remaining_cards": [
+                        "K",
+                        "K"
+                    ],
+                    "play_reason": "出3张牌，下家质疑概率0.00，探索率0.33",
+                    "behavior": "类人策略：基于下家质疑概率决策",
+                    "next_player": "RL_Player",
+                    "was_challenged": false,
+                    "challenge_reason": "RL决策",
+                    "challenge_result": null,
+                    "play_thinking": "类人策略：出牌 ['Joker', 'A', 'A']",
+                    "challenge_thinking": "RL选择不质疑"
+                },
+                {
+                    "player_name": "RL_Player",
+                    "played_cards": [
+                        "Joker"
+                    ],
+                    "remaining_cards": [
+                        "A",
+                        "A",
+                        "K",
+                        "A"
+                    ],
+                    "play_reason": "RL决策",
+                    "behavior": "RL出牌",
+                    "next_player": "Opponent2",
+                    "was_challenged": true,
+                    "challenge_reason": "类人策略：基于上家出假牌概率0.00决策，探索率0.33",
+                    "challenge_result": false,
+                    "play_thinking": "RL选择出牌: ['Joker']",
+                    "challenge_thinking": "类人策略：质疑"
+                }
+            ],
+            "round_result": {
+                "shooter_name": "Opponent2",
+                "bullet_hit": false
+            }
+        },
+        {
+            "round_id": 12,
+            "target_card": "Q",
+            "round_players": [
+                "RL_Player",
+                "Opponent2"
+            ],
+            "starting_player": "Opponent2",
+            "player_initial_states": [
+                {
+                    "player_name": "RL_Player",
+                    "bullet_position": 5,
+                    "current_gun_position": 3,
+                    "initial_hand": [
+                        "A",
+                        "Q",
+                        "Q",
+                        "K",
+                        "Q"
+                    ]
+                },
+                {
+                    "player_name": "Opponent2",
+                    "bullet_position": 5,
+                    "current_gun_position": 3,
+                    "initial_hand": [
+                        "A",
+                        "Joker",
+                        "K",
+                        "Joker",
+                        "K"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "RL_Player": {
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent1": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent2": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent3": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "Opponent2",
+                    "played_cards": [
+                        "A",
+                        "K",
+                        "K"
+                    ],
+                    "remaining_cards": [
+                        "Joker",
+                        "Joker"
+                    ],
+                    "play_reason": "出3张牌，下家质疑概率0.00，探索率0.30",
+                    "behavior": "类人策略：基于下家质疑概率决策",
+                    "next_player": "RL_Player",
+                    "was_challenged": false,
+                    "challenge_reason": "RL决策",
+                    "challenge_result": null,
+                    "play_thinking": "类人策略：出牌 ['A', 'K', 'K']",
+                    "challenge_thinking": "RL选择不质疑"
+                },
+                {
+                    "player_name": "RL_Player",
+                    "played_cards": [
+                        "Q",
+                        "Q",
+                        "Q"
+                    ],
+                    "remaining_cards": [
+                        "A",
+                        "K"
+                    ],
+                    "play_reason": "RL决策",
+                    "behavior": "RL出牌",
+                    "next_player": "Opponent2",
+                    "was_challenged": true,
+                    "challenge_reason": "类人策略：基于上家出假牌概率0.00决策，探索率0.30",
+                    "challenge_result": false,
+                    "play_thinking": "RL选择出牌: ['Q', 'Q', 'Q']",
+                    "challenge_thinking": "类人策略：质疑"
+                }
+            ],
+            "round_result": {
+                "shooter_name": "Opponent2",
+                "bullet_hit": false
+            }
+        },
+        {
+            "round_id": 13,
+            "target_card": "K",
+            "round_players": [
+                "RL_Player",
+                "Opponent2"
+            ],
+            "starting_player": "Opponent2",
+            "player_initial_states": [
+                {
+                    "player_name": "RL_Player",
+                    "bullet_position": 5,
+                    "current_gun_position": 3,
+                    "initial_hand": [
+                        "K",
+                        "Q",
+                        "A",
+                        "K",
+                        "A"
+                    ]
+                },
+                {
+                    "player_name": "Opponent2",
+                    "bullet_position": 5,
+                    "current_gun_position": 4,
+                    "initial_hand": [
+                        "Q",
+                        "Q",
+                        "Joker",
+                        "K",
+                        "K"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "RL_Player": {
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent1": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent2": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent3": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "Opponent2",
+                    "played_cards": [
+                        "Joker",
+                        "K",
+                        "K"
+                    ],
+                    "remaining_cards": [
+                        "Q",
+                        "Q"
+                    ],
+                    "play_reason": "出3张牌，下家质疑概率0.00，探索率0.27",
+                    "behavior": "类人策略：基于下家质疑概率决策",
+                    "next_player": "RL_Player",
+                    "was_challenged": false,
+                    "challenge_reason": "RL决策",
+                    "challenge_result": null,
+                    "play_thinking": "类人策略：出牌 ['Joker', 'K', 'K']",
+                    "challenge_thinking": "RL选择不质疑"
+                },
+                {
+                    "player_name": "RL_Player",
+                    "played_cards": [
+                        "Q",
+                        "A",
+                        "A"
+                    ],
+                    "remaining_cards": [
+                        "K",
+                        "K"
+                    ],
+                    "play_reason": "RL决策",
+                    "behavior": "RL出牌",
+                    "next_player": "Opponent2",
+                    "was_challenged": false,
+                    "challenge_reason": "类人策略：基于上家出假牌概率0.00决策，探索率0.27",
+                    "challenge_result": null,
+                    "play_thinking": "RL选择出牌: ['Q', 'A', 'A']",
+                    "challenge_thinking": "类人策略：不质疑"
+                },
+                {
+                    "player_name": "Opponent2",
+                    "played_cards": [
+                        "Q",
+                        "Q"
+                    ],
+                    "remaining_cards": [],
+                    "play_reason": "出2张牌，下家质疑概率0.00，探索率0.25",
+                    "behavior": "类人策略：基于下家质疑概率决策",
+                    "next_player": "RL_Player",
+                    "was_challenged": false,
+                    "challenge_reason": "RL决策",
+                    "challenge_result": null,
+                    "play_thinking": "类人策略：出牌 ['Q', 'Q']",
+                    "challenge_thinking": "RL选择不质疑"
+                },
+                {
+                    "player_name": "RL_Player",
+                    "played_cards": [
+                        "K",
+                        "K"
+                    ],
+                    "remaining_cards": [],
+                    "play_reason": "最后一人，自动出牌",
+                    "behavior": "无",
+                    "next_player": "无",
+                    "was_challenged": true,
+                    "challenge_reason": "系统自动质疑",
+                    "challenge_result": false,
+                    "play_thinking": "",
+                    "challenge_thinking": ""
+                }
+            ],
+            "round_result": {
+                "shooter_name": "无",
+                "bullet_hit": false
+            }
+        },
+        {
+            "round_id": 14,
+            "target_card": "K",
+            "round_players": [
+                "RL_Player",
+                "Opponent2"
+            ],
+            "starting_player": "Opponent2",
+            "player_initial_states": [
+                {
+                    "player_name": "RL_Player",
+                    "bullet_position": 5,
+                    "current_gun_position": 3,
+                    "initial_hand": [
+                        "A",
+                        "A",
+                        "Joker",
+                        "K",
+                        "A"
+                    ]
+                },
+                {
+                    "player_name": "Opponent2",
+                    "bullet_position": 5,
+                    "current_gun_position": 4,
+                    "initial_hand": [
+                        "Q",
+                        "K",
+                        "K",
+                        "K",
+                        "K"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "RL_Player": {
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent1": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent2": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent3": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "Opponent2",
+                    "played_cards": [
+                        "Q"
+                    ],
+                    "remaining_cards": [
+                        "K",
+                        "K",
+                        "K",
+                        "K"
+                    ],
+                    "play_reason": "出1张牌，下家质疑概率0.00，探索率0.22",
+                    "behavior": "类人策略：基于下家质疑概率决策",
+                    "next_player": "RL_Player",
+                    "was_challenged": false,
+                    "challenge_reason": "RL决策",
+                    "challenge_result": null,
+                    "play_thinking": "类人策略：出牌 ['Q']",
+                    "challenge_thinking": "RL选择不质疑"
+                },
+                {
+                    "player_name": "RL_Player",
+                    "played_cards": [
+                        "K",
+                        "Joker"
+                    ],
+                    "remaining_cards": [
+                        "A",
+                        "A",
+                        "A"
+                    ],
+                    "play_reason": "RL决策",
+                    "behavior": "RL出牌",
+                    "next_player": "Opponent2",
+                    "was_challenged": false,
+                    "challenge_reason": "类人策略：基于上家出假牌概率0.00决策，探索率0.22",
+                    "challenge_result": null,
+                    "play_thinking": "RL选择出牌: ['K', 'Joker']",
+                    "challenge_thinking": "类人策略：不质疑"
+                },
+                {
+                    "player_name": "Opponent2",
+                    "played_cards": [
+                        "K",
+                        "K",
+                        "K",
+                        "K"
+                    ],
+                    "remaining_cards": [],
+                    "play_reason": "出4张牌，下家质疑概率0.00，探索率0.20",
+                    "behavior": "类人策略：基于下家质疑概率决策",
+                    "next_player": "RL_Player",
+                    "was_challenged": true,
+                    "challenge_reason": "RL决策",
+                    "challenge_result": false,
+                    "play_thinking": "类人策略：出牌 ['K', 'K', 'K', 'K']",
+                    "challenge_thinking": "RL选择质疑"
+                }
+            ],
+            "round_result": {
+                "shooter_name": "RL_Player",
+                "bullet_hit": false
+            }
+        },
+        {
+            "round_id": 15,
+            "target_card": "K",
+            "round_players": [
+                "RL_Player",
+                "Opponent2"
+            ],
+            "starting_player": "RL_Player",
+            "player_initial_states": [
+                {
+                    "player_name": "RL_Player",
+                    "bullet_position": 5,
+                    "current_gun_position": 4,
+                    "initial_hand": [
+                        "Joker",
+                        "K",
+                        "A",
+                        "Q",
+                        "K"
+                    ]
+                },
+                {
+                    "player_name": "Opponent2",
+                    "bullet_position": 5,
+                    "current_gun_position": 4,
+                    "initial_hand": [
+                        "A",
+                        "K",
+                        "Q",
+                        "K",
+                        "A"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "RL_Player": {
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent1": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent2": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent3": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "RL_Player",
+                    "played_cards": [
+                        "K",
+                        "Joker"
+                    ],
+                    "remaining_cards": [
+                        "A",
+                        "Q",
+                        "K"
+                    ],
+                    "play_reason": "RL决策",
+                    "behavior": "RL出牌",
+                    "next_player": "Opponent2",
+                    "was_challenged": false,
+                    "challenge_reason": "类人策略：基于上家出假牌概率0.00决策，探索率0.20",
+                    "challenge_result": null,
+                    "play_thinking": "RL选择出牌: ['K', 'Joker']",
+                    "challenge_thinking": "类人策略：不质疑"
+                },
+                {
+                    "player_name": "Opponent2",
+                    "played_cards": [
+                        "K",
+                        "K"
+                    ],
+                    "remaining_cards": [
+                        "A",
+                        "Q",
+                        "A"
+                    ],
+                    "play_reason": "出2张牌，下家质疑概率0.00，探索率0.17",
+                    "behavior": "类人策略：基于下家质疑概率决策",
+                    "next_player": "RL_Player",
+                    "was_challenged": true,
+                    "challenge_reason": "RL决策",
+                    "challenge_result": false,
+                    "play_thinking": "类人策略：出牌 ['K', 'K']",
+                    "challenge_thinking": "RL选择质疑"
+                }
+            ],
+            "round_result": {
+                "shooter_name": "RL_Player",
+                "bullet_hit": false
+            }
+        },
+        {
+            "round_id": 16,
+            "target_card": "A",
+            "round_players": [
+                "RL_Player",
+                "Opponent2"
+            ],
+            "starting_player": "RL_Player",
+            "player_initial_states": [
+                {
+                    "player_name": "RL_Player",
+                    "bullet_position": 5,
+                    "current_gun_position": 5,
+                    "initial_hand": [
+                        "K",
+                        "Q",
+                        "A",
+                        "A",
+                        "Q"
+                    ]
+                },
+                {
+                    "player_name": "Opponent2",
+                    "bullet_position": 5,
+                    "current_gun_position": 4,
+                    "initial_hand": [
+                        "K",
+                        "Q",
+                        "K",
+                        "A",
+                        "A"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "RL_Player": {
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent1": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent2": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent3": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "RL_Player",
+                    "played_cards": [
+                        "K",
+                        "A"
+                    ],
+                    "remaining_cards": [
+                        "Q",
+                        "A",
+                        "Q"
+                    ],
+                    "play_reason": "RL决策",
+                    "behavior": "RL出牌",
+                    "next_player": "Opponent2",
+                    "was_challenged": false,
+                    "challenge_reason": "类人策略：基于上家出假牌概率0.00决策，探索率0.17",
+                    "challenge_result": null,
+                    "play_thinking": "RL选择出牌: ['K', 'A']",
+                    "challenge_thinking": "类人策略：不质疑"
+                },
+                {
+                    "player_name": "Opponent2",
+                    "played_cards": [
+                        "A",
+                        "A"
+                    ],
+                    "remaining_cards": [
+                        "K",
+                        "Q",
+                        "K"
+                    ],
+                    "play_reason": "出2张牌，下家质疑概率0.00，探索率0.15",
+                    "behavior": "类人策略：基于下家质疑概率决策",
+                    "next_player": "RL_Player",
+                    "was_challenged": false,
+                    "challenge_reason": "RL决策",
+                    "challenge_result": null,
+                    "play_thinking": "类人策略：出牌 ['A', 'A']",
+                    "challenge_thinking": "RL选择不质疑"
+                },
+                {
+                    "player_name": "RL_Player",
+                    "played_cards": [
+                        "Q",
+                        "A"
+                    ],
+                    "remaining_cards": [
+                        "Q"
+                    ],
+                    "play_reason": "RL决策",
+                    "behavior": "RL出牌",
+                    "next_player": "Opponent2",
+                    "was_challenged": false,
+                    "challenge_reason": "类人策略：基于上家出假牌概率0.00决策，探索率0.15",
+                    "challenge_result": null,
+                    "play_thinking": "RL选择出牌: ['Q', 'A']",
+                    "challenge_thinking": "类人策略：不质疑"
+                },
+                {
+                    "player_name": "Opponent2",
+                    "played_cards": [],
+                    "remaining_cards": [
+                        "K",
+                        "Q",
+                        "K"
+                    ],
+                    "play_reason": "出0张牌，下家质疑概率0.00，探索率0.12",
+                    "behavior": "类人策略：基于下家质疑概率决策",
+                    "next_player": "RL_Player",
+                    "was_challenged": false,
+                    "challenge_reason": "RL决策",
+                    "challenge_result": null,
+                    "play_thinking": "类人策略：出牌 []",
+                    "challenge_thinking": "RL选择不质疑"
+                },
+                {
+                    "player_name": "RL_Player",
+                    "played_cards": [
+                        "Q"
+                    ],
+                    "remaining_cards": [],
+                    "play_reason": "RL决策",
+                    "behavior": "RL出牌",
+                    "next_player": "Opponent2",
+                    "was_challenged": false,
+                    "challenge_reason": "类人策略：基于上家出假牌概率0.00决策，探索率0.12",
+                    "challenge_result": null,
+                    "play_thinking": "RL选择出牌: ['Q']",
+                    "challenge_thinking": "类人策略：不质疑"
+                },
+                {
+                    "player_name": "Opponent2",
+                    "played_cards": [
+                        "K",
+                        "Q",
+                        "K"
+                    ],
+                    "remaining_cards": [],
+                    "play_reason": "最后一人，自动出牌",
+                    "behavior": "无",
+                    "next_player": "无",
+                    "was_challenged": true,
+                    "challenge_reason": "系统自动质疑",
+                    "challenge_result": true,
+                    "play_thinking": "",
+                    "challenge_thinking": ""
+                }
+            ],
+            "round_result": {
+                "shooter_name": "Opponent2",
+                "bullet_hit": false
+            }
+        },
+        {
+            "round_id": 17,
+            "target_card": "K",
+            "round_players": [
+                "RL_Player",
+                "Opponent2"
+            ],
+            "starting_player": "Opponent2",
+            "player_initial_states": [
+                {
+                    "player_name": "RL_Player",
+                    "bullet_position": 5,
+                    "current_gun_position": 5,
+                    "initial_hand": [
+                        "K",
+                        "Q",
+                        "A",
+                        "K",
+                        "A"
+                    ]
+                },
+                {
+                    "player_name": "Opponent2",
+                    "bullet_position": 5,
+                    "current_gun_position": 5,
+                    "initial_hand": [
+                        "Joker",
+                        "Q",
+                        "Q",
+                        "A",
+                        "Q"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "RL_Player": {
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent1": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent2": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent3": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "Opponent2",
+                    "played_cards": [
+                        "Q",
+                        "Q",
+                        "A",
+                        "Q"
+                    ],
+                    "remaining_cards": [
+                        "Joker"
+                    ],
+                    "play_reason": "出4张牌，下家质疑概率0.00，探索率0.10",
+                    "behavior": "类人策略：基于下家质疑概率决策",
+                    "next_player": "RL_Player",
+                    "was_challenged": true,
+                    "challenge_reason": "RL决策",
+                    "challenge_result": true,
+                    "play_thinking": "类人策略：出牌 ['Q', 'Q', 'A', 'Q']",
+                    "challenge_thinking": "RL选择质疑"
+                }
+            ],
+            "round_result": {
+                "shooter_name": "Opponent2",
+                "bullet_hit": true
+            }
+        }
+    ],
+    "winner": "RL_Player"
+}

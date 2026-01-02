@@ -1,0 +1,12 @@
+{
+  "agent_type": "dqn",
+  "agent_config": {
+    "learning_rate": 0.001,
+    "discount_factor": 0.95,
+    "epsilon": 1.0,
+    "epsilon_decay": 0.998,
+    "epsilon_min": 0.05
+  },
+  "experiment_name": "medium_training",
+  "created_at": "2026-01-03 03:24:42"
+}

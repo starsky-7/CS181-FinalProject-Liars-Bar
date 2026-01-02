@@ -1,0 +1,1078 @@
+{
+    "game_id": "20251224_195509",
+    "player_names": [
+        "RL_Player",
+        "Opponent1",
+        "Opponent2",
+        "Opponent3"
+    ],
+    "rounds": [
+        {
+            "round_id": 1,
+            "target_card": "A",
+            "round_players": [
+                "RL_Player",
+                "Opponent1",
+                "Opponent2",
+                "Opponent3"
+            ],
+            "starting_player": "Opponent2",
+            "player_initial_states": [
+                {
+                    "player_name": "RL_Player",
+                    "bullet_position": 1,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "A",
+                        "Q",
+                        "K",
+                        "Q",
+                        "K"
+                    ]
+                },
+                {
+                    "player_name": "Opponent1",
+                    "bullet_position": 5,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "A",
+                        "K",
+                        "K",
+                        "A",
+                        "Q"
+                    ]
+                },
+                {
+                    "player_name": "Opponent2",
+                    "bullet_position": 0,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "Q",
+                        "Joker",
+                        "K",
+                        "Q",
+                        "A"
+                    ]
+                },
+                {
+                    "player_name": "Opponent3",
+                    "bullet_position": 1,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "Q",
+                        "Joker",
+                        "A",
+                        "K",
+                        "A"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "RL_Player": {
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent1": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent2": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent3": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "Opponent2",
+                    "played_cards": [
+                        "Joker",
+                        "A"
+                    ],
+                    "remaining_cards": [
+                        "Q",
+                        "K",
+                        "Q"
+                    ],
+                    "play_reason": "出2张牌",
+                    "behavior": "更智能策略：优先出Joker，其次出目标牌",
+                    "next_player": "Opponent3",
+                    "was_challenged": true,
+                    "challenge_reason": "更智能策略：以随机数作为阈值，超过阈值则质疑，否则不质疑",
+                    "challenge_result": false,
+                    "play_thinking": "更智能策略：出牌 ['Joker', 'A']",
+                    "challenge_thinking": "更智能策略：质疑"
+                }
+            ],
+            "round_result": {
+                "shooter_name": "Opponent3",
+                "bullet_hit": false
+            }
+        },
+        {
+            "round_id": 2,
+            "target_card": "Q",
+            "round_players": [
+                "RL_Player",
+                "Opponent1",
+                "Opponent2",
+                "Opponent3"
+            ],
+            "starting_player": "Opponent3",
+            "player_initial_states": [
+                {
+                    "player_name": "RL_Player",
+                    "bullet_position": 1,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "K",
+                        "Q",
+                        "Q",
+                        "Joker",
+                        "A"
+                    ]
+                },
+                {
+                    "player_name": "Opponent1",
+                    "bullet_position": 5,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "Q",
+                        "K",
+                        "A",
+                        "Q",
+                        "K"
+                    ]
+                },
+                {
+                    "player_name": "Opponent2",
+                    "bullet_position": 0,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "K",
+                        "K",
+                        "A",
+                        "K",
+                        "A"
+                    ]
+                },
+                {
+                    "player_name": "Opponent3",
+                    "bullet_position": 1,
+                    "current_gun_position": 1,
+                    "initial_hand": [
+                        "A",
+                        "Joker",
+                        "Q",
+                        "A",
+                        "Q"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "RL_Player": {
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent1": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent2": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent3": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "Opponent3",
+                    "played_cards": [
+                        "Joker",
+                        "Q",
+                        "Q"
+                    ],
+                    "remaining_cards": [
+                        "A",
+                        "A"
+                    ],
+                    "play_reason": "出3张牌",
+                    "behavior": "更智能策略：优先出Joker，其次出目标牌",
+                    "next_player": "RL_Player",
+                    "was_challenged": true,
+                    "challenge_reason": "RL决策",
+                    "challenge_result": false,
+                    "play_thinking": "更智能策略：出牌 ['Joker', 'Q', 'Q']",
+                    "challenge_thinking": "RL选择质疑"
+                }
+            ],
+            "round_result": {
+                "shooter_name": "RL_Player",
+                "bullet_hit": false
+            }
+        },
+        {
+            "round_id": 3,
+            "target_card": "A",
+            "round_players": [
+                "RL_Player",
+                "Opponent1",
+                "Opponent2",
+                "Opponent3"
+            ],
+            "starting_player": "RL_Player",
+            "player_initial_states": [
+                {
+                    "player_name": "RL_Player",
+                    "bullet_position": 1,
+                    "current_gun_position": 1,
+                    "initial_hand": [
+                        "K",
+                        "Joker",
+                        "K",
+                        "Q",
+                        "A"
+                    ]
+                },
+                {
+                    "player_name": "Opponent1",
+                    "bullet_position": 5,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "K",
+                        "Q",
+                        "A",
+                        "K",
+                        "A"
+                    ]
+                },
+                {
+                    "player_name": "Opponent2",
+                    "bullet_position": 0,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "A",
+                        "Q",
+                        "K",
+                        "Q",
+                        "A"
+                    ]
+                },
+                {
+                    "player_name": "Opponent3",
+                    "bullet_position": 1,
+                    "current_gun_position": 1,
+                    "initial_hand": [
+                        "K",
+                        "Q",
+                        "Joker",
+                        "Q",
+                        "A"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "RL_Player": {
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent1": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent2": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent3": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "RL_Player",
+                    "played_cards": [
+                        "K",
+                        "K",
+                        "A",
+                        "Joker"
+                    ],
+                    "remaining_cards": [
+                        "Q"
+                    ],
+                    "play_reason": "RL决策",
+                    "behavior": "RL出牌",
+                    "next_player": "Opponent1",
+                    "was_challenged": true,
+                    "challenge_reason": "简单策略：总是质疑",
+                    "challenge_result": true,
+                    "play_thinking": "RL选择出牌: ['K', 'K', 'A', 'Joker']",
+                    "challenge_thinking": "简单策略：总是质疑"
+                }
+            ],
+            "round_result": {
+                "shooter_name": "RL_Player",
+                "bullet_hit": true
+            }
+        },
+        {
+            "round_id": 4,
+            "target_card": "A",
+            "round_players": [
+                "Opponent1",
+                "Opponent2",
+                "Opponent3"
+            ],
+            "starting_player": "Opponent1",
+            "player_initial_states": [
+                {
+                    "player_name": "Opponent1",
+                    "bullet_position": 5,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "A",
+                        "Q",
+                        "Q",
+                        "Q",
+                        "A"
+                    ]
+                },
+                {
+                    "player_name": "Opponent2",
+                    "bullet_position": 0,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "A",
+                        "A",
+                        "A",
+                        "K",
+                        "K"
+                    ]
+                },
+                {
+                    "player_name": "Opponent3",
+                    "bullet_position": 1,
+                    "current_gun_position": 1,
+                    "initial_hand": [
+                        "Joker",
+                        "K",
+                        "K",
+                        "Q",
+                        "K"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "RL_Player": {
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent1": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent2": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent3": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "Opponent1",
+                    "played_cards": [
+                        "A",
+                        "A"
+                    ],
+                    "remaining_cards": [
+                        "Q",
+                        "Q",
+                        "Q"
+                    ],
+                    "play_reason": "出2张真牌",
+                    "behavior": "简单策略：只出真牌",
+                    "next_player": "Opponent2",
+                    "was_challenged": false,
+                    "challenge_reason": "更智能策略：以随机数作为阈值，超过阈值则质疑，否则不质疑",
+                    "challenge_result": null,
+                    "play_thinking": "简单策略：出真牌 ['A', 'A']",
+                    "challenge_thinking": "更智能策略：不质疑"
+                },
+                {
+                    "player_name": "Opponent2",
+                    "played_cards": [
+                        "A",
+                        "A",
+                        "A"
+                    ],
+                    "remaining_cards": [
+                        "K",
+                        "K"
+                    ],
+                    "play_reason": "出3张牌",
+                    "behavior": "更智能策略：优先出Joker，其次出目标牌",
+                    "next_player": "Opponent3",
+                    "was_challenged": false,
+                    "challenge_reason": "更智能策略：以随机数作为阈值，超过阈值则质疑，否则不质疑",
+                    "challenge_result": null,
+                    "play_thinking": "更智能策略：出牌 ['A', 'A', 'A']",
+                    "challenge_thinking": "更智能策略：不质疑"
+                },
+                {
+                    "player_name": "Opponent3",
+                    "played_cards": [
+                        "Joker"
+                    ],
+                    "remaining_cards": [
+                        "K",
+                        "K",
+                        "Q",
+                        "K"
+                    ],
+                    "play_reason": "出1张牌",
+                    "behavior": "更智能策略：优先出Joker，其次出目标牌",
+                    "next_player": "Opponent1",
+                    "was_challenged": true,
+                    "challenge_reason": "简单策略：总是质疑",
+                    "challenge_result": false,
+                    "play_thinking": "更智能策略：出牌 ['Joker']",
+                    "challenge_thinking": "简单策略：总是质疑"
+                }
+            ],
+            "round_result": {
+                "shooter_name": "Opponent1",
+                "bullet_hit": false
+            }
+        },
+        {
+            "round_id": 5,
+            "target_card": "Q",
+            "round_players": [
+                "Opponent1",
+                "Opponent2",
+                "Opponent3"
+            ],
+            "starting_player": "Opponent1",
+            "player_initial_states": [
+                {
+                    "player_name": "Opponent1",
+                    "bullet_position": 5,
+                    "current_gun_position": 1,
+                    "initial_hand": [
+                        "Q",
+                        "A",
+                        "K",
+                        "A",
+                        "A"
+                    ]
+                },
+                {
+                    "player_name": "Opponent2",
+                    "bullet_position": 0,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "K",
+                        "K",
+                        "Q",
+                        "K",
+                        "K"
+                    ]
+                },
+                {
+                    "player_name": "Opponent3",
+                    "bullet_position": 1,
+                    "current_gun_position": 1,
+                    "initial_hand": [
+                        "Q",
+                        "A",
+                        "A",
+                        "Q",
+                        "Q"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "RL_Player": {
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent1": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent2": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent3": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "Opponent1",
+                    "played_cards": [
+                        "Q"
+                    ],
+                    "remaining_cards": [
+                        "A",
+                        "K",
+                        "A",
+                        "A"
+                    ],
+                    "play_reason": "出1张真牌",
+                    "behavior": "简单策略：只出真牌",
+                    "next_player": "Opponent2",
+                    "was_challenged": false,
+                    "challenge_reason": "更智能策略：以随机数作为阈值，超过阈值则质疑，否则不质疑",
+                    "challenge_result": null,
+                    "play_thinking": "简单策略：出真牌 ['Q']",
+                    "challenge_thinking": "更智能策略：不质疑"
+                },
+                {
+                    "player_name": "Opponent2",
+                    "played_cards": [
+                        "Q"
+                    ],
+                    "remaining_cards": [
+                        "K",
+                        "K",
+                        "K",
+                        "K"
+                    ],
+                    "play_reason": "出1张牌",
+                    "behavior": "更智能策略：优先出Joker，其次出目标牌",
+                    "next_player": "Opponent3",
+                    "was_challenged": false,
+                    "challenge_reason": "更智能策略：以随机数作为阈值，超过阈值则质疑，否则不质疑",
+                    "challenge_result": null,
+                    "play_thinking": "更智能策略：出牌 ['Q']",
+                    "challenge_thinking": "更智能策略：不质疑"
+                },
+                {
+                    "player_name": "Opponent3",
+                    "played_cards": [
+                        "Q",
+                        "Q",
+                        "Q"
+                    ],
+                    "remaining_cards": [
+                        "A",
+                        "A"
+                    ],
+                    "play_reason": "出3张牌",
+                    "behavior": "更智能策略：优先出Joker，其次出目标牌",
+                    "next_player": "Opponent1",
+                    "was_challenged": true,
+                    "challenge_reason": "简单策略：总是质疑",
+                    "challenge_result": false,
+                    "play_thinking": "更智能策略：出牌 ['Q', 'Q', 'Q']",
+                    "challenge_thinking": "简单策略：总是质疑"
+                }
+            ],
+            "round_result": {
+                "shooter_name": "Opponent1",
+                "bullet_hit": false
+            }
+        },
+        {
+            "round_id": 6,
+            "target_card": "Q",
+            "round_players": [
+                "Opponent1",
+                "Opponent2",
+                "Opponent3"
+            ],
+            "starting_player": "Opponent1",
+            "player_initial_states": [
+                {
+                    "player_name": "Opponent1",
+                    "bullet_position": 5,
+                    "current_gun_position": 2,
+                    "initial_hand": [
+                        "Q",
+                        "Q",
+                        "Q",
+                        "K",
+                        "K"
+                    ]
+                },
+                {
+                    "player_name": "Opponent2",
+                    "bullet_position": 0,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "K",
+                        "K",
+                        "A",
+                        "A",
+                        "K"
+                    ]
+                },
+                {
+                    "player_name": "Opponent3",
+                    "bullet_position": 1,
+                    "current_gun_position": 1,
+                    "initial_hand": [
+                        "K",
+                        "A",
+                        "Q",
+                        "Q",
+                        "Q"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "RL_Player": {
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent1": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent2": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent3": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "Opponent1",
+                    "played_cards": [
+                        "Q",
+                        "Q",
+                        "Q"
+                    ],
+                    "remaining_cards": [
+                        "K",
+                        "K"
+                    ],
+                    "play_reason": "出3张真牌",
+                    "behavior": "简单策略：只出真牌",
+                    "next_player": "Opponent2",
+                    "was_challenged": true,
+                    "challenge_reason": "更智能策略：以随机数作为阈值，超过阈值则质疑，否则不质疑",
+                    "challenge_result": false,
+                    "play_thinking": "简单策略：出真牌 ['Q', 'Q', 'Q']",
+                    "challenge_thinking": "更智能策略：质疑"
+                }
+            ],
+            "round_result": {
+                "shooter_name": "Opponent2",
+                "bullet_hit": true
+            }
+        },
+        {
+            "round_id": 7,
+            "target_card": "Q",
+            "round_players": [
+                "Opponent1",
+                "Opponent3"
+            ],
+            "starting_player": "Opponent3",
+            "player_initial_states": [
+                {
+                    "player_name": "Opponent1",
+                    "bullet_position": 5,
+                    "current_gun_position": 2,
+                    "initial_hand": [
+                        "K",
+                        "K",
+                        "Joker",
+                        "K",
+                        "Q"
+                    ]
+                },
+                {
+                    "player_name": "Opponent3",
+                    "bullet_position": 1,
+                    "current_gun_position": 1,
+                    "initial_hand": [
+                        "K",
+                        "Q",
+                        "Q",
+                        "K",
+                        "K"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "RL_Player": {
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent1": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent2": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent3": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "Opponent3",
+                    "played_cards": [
+                        "Q",
+                        "Q"
+                    ],
+                    "remaining_cards": [
+                        "K",
+                        "K",
+                        "K"
+                    ],
+                    "play_reason": "出2张牌",
+                    "behavior": "更智能策略：优先出Joker，其次出目标牌",
+                    "next_player": "Opponent1",
+                    "was_challenged": true,
+                    "challenge_reason": "简单策略：总是质疑",
+                    "challenge_result": false,
+                    "play_thinking": "更智能策略：出牌 ['Q', 'Q']",
+                    "challenge_thinking": "简单策略：总是质疑"
+                }
+            ],
+            "round_result": {
+                "shooter_name": "Opponent1",
+                "bullet_hit": false
+            }
+        },
+        {
+            "round_id": 8,
+            "target_card": "A",
+            "round_players": [
+                "Opponent1",
+                "Opponent3"
+            ],
+            "starting_player": "Opponent1",
+            "player_initial_states": [
+                {
+                    "player_name": "Opponent1",
+                    "bullet_position": 5,
+                    "current_gun_position": 3,
+                    "initial_hand": [
+                        "Q",
+                        "Joker",
+                        "Q",
+                        "Q",
+                        "A"
+                    ]
+                },
+                {
+                    "player_name": "Opponent3",
+                    "bullet_position": 1,
+                    "current_gun_position": 1,
+                    "initial_hand": [
+                        "K",
+                        "Q",
+                        "Joker",
+                        "A",
+                        "Q"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "RL_Player": {
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent1": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent2": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent3": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "Opponent1",
+                    "played_cards": [
+                        "Joker",
+                        "A"
+                    ],
+                    "remaining_cards": [
+                        "Q",
+                        "Q",
+                        "Q"
+                    ],
+                    "play_reason": "出2张真牌",
+                    "behavior": "简单策略：只出真牌",
+                    "next_player": "Opponent3",
+                    "was_challenged": false,
+                    "challenge_reason": "更智能策略：以随机数作为阈值，超过阈值则质疑，否则不质疑",
+                    "challenge_result": null,
+                    "play_thinking": "简单策略：出真牌 ['Joker', 'A']",
+                    "challenge_thinking": "更智能策略：不质疑"
+                },
+                {
+                    "player_name": "Opponent3",
+                    "played_cards": [
+                        "Joker",
+                        "A"
+                    ],
+                    "remaining_cards": [
+                        "K",
+                        "Q",
+                        "Q"
+                    ],
+                    "play_reason": "出2张牌",
+                    "behavior": "更智能策略：优先出Joker，其次出目标牌",
+                    "next_player": "Opponent1",
+                    "was_challenged": true,
+                    "challenge_reason": "简单策略：总是质疑",
+                    "challenge_result": false,
+                    "play_thinking": "更智能策略：出牌 ['Joker', 'A']",
+                    "challenge_thinking": "简单策略：总是质疑"
+                }
+            ],
+            "round_result": {
+                "shooter_name": "Opponent1",
+                "bullet_hit": false
+            }
+        },
+        {
+            "round_id": 9,
+            "target_card": "Q",
+            "round_players": [
+                "Opponent1",
+                "Opponent3"
+            ],
+            "starting_player": "Opponent1",
+            "player_initial_states": [
+                {
+                    "player_name": "Opponent1",
+                    "bullet_position": 5,
+                    "current_gun_position": 4,
+                    "initial_hand": [
+                        "A",
+                        "Q",
+                        "K",
+                        "Q",
+                        "Q"
+                    ]
+                },
+                {
+                    "player_name": "Opponent3",
+                    "bullet_position": 1,
+                    "current_gun_position": 1,
+                    "initial_hand": [
+                        "A",
+                        "A",
+                        "K",
+                        "K",
+                        "A"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "RL_Player": {
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent1": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent2": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent3": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "Opponent1",
+                    "played_cards": [
+                        "Q",
+                        "Q",
+                        "Q"
+                    ],
+                    "remaining_cards": [
+                        "A",
+                        "K"
+                    ],
+                    "play_reason": "出3张真牌",
+                    "behavior": "简单策略：只出真牌",
+                    "next_player": "Opponent3",
+                    "was_challenged": false,
+                    "challenge_reason": "更智能策略：以随机数作为阈值，超过阈值则质疑，否则不质疑",
+                    "challenge_result": null,
+                    "play_thinking": "简单策略：出真牌 ['Q', 'Q', 'Q']",
+                    "challenge_thinking": "更智能策略：不质疑"
+                },
+                {
+                    "player_name": "Opponent3",
+                    "played_cards": [],
+                    "remaining_cards": [
+                        "A",
+                        "A",
+                        "K",
+                        "K",
+                        "A"
+                    ],
+                    "play_reason": "出0张牌",
+                    "behavior": "更智能策略：优先出Joker，其次出目标牌",
+                    "next_player": "Opponent1",
+                    "was_challenged": true,
+                    "challenge_reason": "简单策略：总是质疑",
+                    "challenge_result": false,
+                    "play_thinking": "更智能策略：出牌 []",
+                    "challenge_thinking": "简单策略：总是质疑"
+                }
+            ],
+            "round_result": {
+                "shooter_name": "Opponent1",
+                "bullet_hit": false
+            }
+        },
+        {
+            "round_id": 10,
+            "target_card": "A",
+            "round_players": [
+                "Opponent1",
+                "Opponent3"
+            ],
+            "starting_player": "Opponent1",
+            "player_initial_states": [
+                {
+                    "player_name": "Opponent1",
+                    "bullet_position": 5,
+                    "current_gun_position": 5,
+                    "initial_hand": [
+                        "K",
+                        "Joker",
+                        "A",
+                        "Q",
+                        "K"
+                    ]
+                },
+                {
+                    "player_name": "Opponent3",
+                    "bullet_position": 1,
+                    "current_gun_position": 1,
+                    "initial_hand": [
+                        "A",
+                        "A",
+                        "Q",
+                        "Q",
+                        "A"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "RL_Player": {
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent1": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent2": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent3": "还不了解这个玩家"
+                },
+                "Opponent3": {
+                    "RL_Player": "还不了解这个玩家",
+                    "Opponent1": "还不了解这个玩家",
+                    "Opponent2": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "Opponent1",
+                    "played_cards": [
+                        "Joker",
+                        "A"
+                    ],
+                    "remaining_cards": [
+                        "K",
+                        "Q",
+                        "K"
+                    ],
+                    "play_reason": "出2张真牌",
+                    "behavior": "简单策略：只出真牌",
+                    "next_player": "Opponent3",
+                    "was_challenged": true,
+                    "challenge_reason": "更智能策略：以随机数作为阈值，超过阈值则质疑，否则不质疑",
+                    "challenge_result": false,
+                    "play_thinking": "简单策略：出真牌 ['Joker', 'A']",
+                    "challenge_thinking": "更智能策略：质疑"
+                }
+            ],
+            "round_result": {
+                "shooter_name": "Opponent3",
+                "bullet_hit": true
+            }
+        }
+    ],
+    "winner": "Opponent1"
+}

@@ -6,56 +6,69 @@ from player import (
     BasePlayer,
     ManualPlayer,
     SimpleStrategyPlayer,
+    SmarterStrategyPlayer,
     RLPlayer,
+    HumanLikeStrategyPlayer
     # MinimaxPlayer,
-    # QLearningPlayer,
+    # LinearQPlayer,
 )
 from game_record import GameRecord, PlayerInitialState
 
-
+# game.py - 第一处改动（__init__方法）
 class Game:
-    def __init__(self, player_configs: List[Dict]) -> None:
+    def __init__(self, player_configs=None, players=None, showDetails=True, 
+                 stats_manager=None):  # 新增参数
         """
         初始化游戏
-
+        
         Args:
-            player_configs: 玩家配置列表，每个元素例如：
-                {
-                    "name": "Human1",
-                    "type": "manual",      # "manual" / "simple" / "rl"
-                    "agent": RLAgent()     # 仅 rl 需要
-                    "is_training": True    # 仅 rl 需要
-                }
+            player_configs: 玩家配置列表
+            players: 直接传入玩家对象列表（可选）
+            showDetails: 是否打印详细对局信息
+            stats_manager: 对手统计管理器（可选）
         """
-        self.players: List[BasePlayer] = []
+        self.showDetails = showDetails
+        self.stats_manager = stats_manager  # 新增：保存统计管理器
+        
+        # ... 原有代码保持不变 ...
+        self.showDetails = showDetails
+        if players is not None:
+            self.players = players
+        else:
+            self.players = []
+            for config in player_configs:
+                p_type = config.get("type", "manual")
+                name = config["name"]
 
-        for config in player_configs:
-            p_type = config.get("type", "manual")
-            name = config["name"]
+                # 修改：不再支持 LLM 玩家，移除 LLM 支持
+                # if p_type == "llm":
+                #     model = config.get("model", "deepseek-r1")  # LLM 不再使用，删除该行
+                #     player = LLMPlayer(name, model)  # LLMPlayer 不再使用，删除该行
+                if p_type == "manual":
+                    player = ManualPlayer(name, showDetails)
+                elif p_type == "simple":
+                    player = SimpleStrategyPlayer(name, showDetails)
+                elif p_type == "smarter":
+                    player = SmarterStrategyPlayer(name, showDetails)
+                elif p_type == "LinearQ":
+                    agent = config.get("agent")
+                    is_training = config.get("is_training", True)
+                    player = RLPlayer(name, showDetails, agent, is_training)
+                elif p_type == "dqn":
+                    agent = config.get("agent")
+                    is_training = config.get("is_training", True)
+                    player = RLPlayer(name, showDetails, agent, is_training)
+                elif p_type == "humanlike":
+                    player = HumanLikeStrategyPlayer(name, showDetails)
+                # elif p_type == "minimax":
+                #     depth = config.get("search_depth", 1)
+                #     player = MinimaxPlayer(name, search_depth=depth)
+                # elif p_type == "LinearQ":
+                #     player = LinearQPlayer(name)
+                else:
+                    raise ValueError(f"未知玩家类型: {p_type}")
 
-            # 修改：不再支持 LLM 玩家，移除 LLM 支持
-            # if p_type == "llm":
-            #     model = config.get("model", "deepseek-r1")  # LLM 不再使用，删除该行
-            #     player = LLMPlayer(name, model)  # LLMPlayer 不再使用，删除该行
-            if p_type == "manual":
-                player = ManualPlayer(name)
-            elif p_type == "simple":
-                player = SimpleStrategyPlayer(name)
-            elif p_type == "rl":
-                agent = config.get("agent")
-                if agent is None:
-                    raise ValueError("RL玩家需要提供agent实例")
-                is_training = config.get("is_training", True)
-                player = RLPlayer(name, agent, is_training)
-            # elif p_type == "minimax":
-            #     depth = config.get("search_depth", 1)
-            #     player = MinimaxPlayer(name, search_depth=depth)
-            # elif p_type == "qlearning":
-            #     player = QLearningPlayer(name)
-            else:
-                raise ValueError(f"未知玩家类型: {p_type}")
-
-            self.players.append(player)
+                self.players.append(player)
 
         # 初始化每个玩家对其他玩家的看法
         for player in self.players:
@@ -68,7 +81,7 @@ class Game:
         self.game_over: bool = False
 
         # 创建游戏记录
-        self.game_record: GameRecord = GameRecord()
+        self.game_record: GameRecord = GameRecord(showDetails)
         self.game_record.start_game([p.name for p in self.players])
         self.round_count = 0
         self.first_deck: Optional[List[str]] = None
@@ -79,8 +92,9 @@ class Game:
         random.shuffle(deck)
         return deck
 
-    def deal_cards(self) -> None:
+    def deal_cards(self, showDetails: Optional[bool] = None) -> None:
         """发牌并清空旧手牌"""
+        showDetails = self.showDetails if showDetails is None else showDetails
 
         """
         !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -98,11 +112,7 @@ class Game:
         self.deck = self._create_deck()
         """
 
-        if self.round_count == 0:
-            self.deck = self._create_deck()
-            self.first_deck = self.deck.copy()
-        else:
-            self.deck = self.first_deck.copy()
+        self.deck = self._create_deck()  # 改回来了，现在是每局都重新洗牌
         for player in self.players:
             if player.alive:
                 player.hand.clear()
@@ -111,12 +121,15 @@ class Game:
             for player in self.players:
                 if player.alive and self.deck:
                     player.hand.append(self.deck.pop())
-                    player.print_status()
+                    if showDetails:
+                        player.print_status()
 
-    def choose_target_card(self) -> None:
+    def choose_target_card(self, showDetails: Optional[bool] = None) -> None:
         """随机选择目标牌"""
+        showDetails = self.showDetails if showDetails is None else showDetails
         self.target_card = random.choice(['Q', 'K', 'A'])
-        print(f"目标牌是: {self.target_card}")
+        if showDetails:
+            print(f"目标牌是: {self.target_card}")
          # 修改：将目标牌传递给所有玩家
         for p in self.players:
             p.target_card = self.target_card  # 直接给每个玩家设置 target_card
@@ -170,16 +183,18 @@ class Game:
                 return idx
         return start_idx  # 理论上不会发生
 
-    def perform_penalty(self, player: BasePlayer) -> None:
+    def perform_penalty(self, player: BasePlayer, showDetails: Optional[bool] = None) -> None:
         """
         执行射击惩罚，并根据结果更新游戏状态和记录
 
         Args:
             player: 需要执行惩罚的玩家
         """
-        print(f"玩家 {player.name} 开枪！")
+        showDetails = self.showDetails if showDetails is None else showDetails
+        if showDetails:
+            print(f"玩家 {player.name} 开枪！")
         
-        # 执行射击并获取存活状态
+        #        """        showDetails = self.showDetails if showDetails is None else showDetails态
         still_alive = player.process_penalty()
         self.last_shooter_name = player.name
 
@@ -190,15 +205,18 @@ class Game:
         )
 
         if not still_alive:
-            print(f"{player.name} 已死亡！")
+            if showDetails:
+                print(f"{player.name} 已死亡！")
         
         # 检查胜利条件
         if not self.check_victory():
             self.reset_round(record_shooter=True)
 
-    def reset_round(self, record_shooter: bool) -> None:
+    def reset_round(self, record_shooter: bool, showDetails: Optional[bool] = None) -> None:
         """重置当前小局"""
-        print("小局游戏重置，开始新的一局！")
+        showDetails = self.showDetails if showDetails is None else showDetails
+        if showDetails:
+            print("小局游戏重置，开始新的一局！")
 
         # 在发新牌之前进行反思，并获取存活玩家列表
         alive_players = self.handle_reflection()
@@ -213,14 +231,16 @@ class Game:
             if shooter_idx is not None and self.players[shooter_idx].alive:
                 self.current_player_idx = shooter_idx
             else:
-                print(f"{self.last_shooter_name} 已死亡，顺延至下一个存活且有手牌的玩家")
+                if showDetails:
+                    print(f"{self.last_shooter_name} 已死亡，顺延至下一个存活且有手牌的玩家")
                 self.current_player_idx = self.find_next_player_with_cards(shooter_idx or 0)
         else:
             self.last_shooter_name = None
             self.current_player_idx = self.players.index(random.choice(alive_players))
 
         self.start_round_record()
-        print(f"从 {self.players[self.current_player_idx].name} 开始新的一轮！")
+        if showDetails:
+            print(f"从 {self.players[self.current_player_idx].name} 开始新的一轮！")
 
     def check_victory(self) -> bool:
         """
@@ -232,7 +252,8 @@ class Game:
         alive_players = [p for p in self.players if p.alive]
         if len(alive_players) == 1:
             winner = alive_players[0]
-            print(f"\n{winner.name} 获胜！")
+            if self.showDetails:
+                print(f"\n{winner.name} 获胜！")
             # 记录胜利者并保存游戏记录
             self.game_record.finish_game(winner.name)
             self.game_over = True
@@ -284,7 +305,17 @@ class Game:
             next_player=next_player.name,
             play_thinking=reasoning
         )
-
+        try:
+            if self.stats_manager is not None:
+                did_cheat = not self.is_valid_play(play_result["played_cards"])
+                self.stats_manager.record_play_behavior(
+                    player_name=current_player.name,
+                    did_cheat=did_cheat
+                )
+        except Exception as e:
+            if self.showDetails:
+                print(f"[警告] 统计记录失败: {e}")
+        
         return play_result["played_cards"]
     
     def handle_challenge(self, current_player: BasePlayer, next_player: BasePlayer, played_cards: List[str]) -> BasePlayer:
@@ -323,6 +354,16 @@ class Game:
             challenging_player_behavior,
             extra_hint
         )
+        try:
+            if self.stats_manager is not None:
+                self.stats_manager.record_challenge_behavior(
+                    player_name=next_player.name,
+                    did_challenge=challenge_result["was_challenged"]
+                )
+        except Exception as e:
+            if self.showDetails:
+                print(f"[警告] 统计记录失败: {e}")
+    
 
         # 如果选择质疑
         if challenge_result["was_challenged"]:
@@ -349,7 +390,7 @@ class Game:
             )
             return None
 
-    def handle_system_challenge(self, current_player: BasePlayer) -> None:
+    def handle_system_challenge(self, current_player: BasePlayer, showDetails: Optional[bool] = None) -> None:
         """
         处理系统自动质疑的情况
         当其他所有存活玩家都没有手牌时，系统自动对当前玩家进行质疑
@@ -357,7 +398,9 @@ class Game:
         Args:
             current_player: 当前玩家（最后一个有手牌的玩家）
         """
-        print(f"系统自动质疑 {current_player.name} 的手牌！")
+        showDetails = self.showDetails if showDetails is None else showDetails
+        if showDetails:
+            print(f"系统自动质疑 {current_player.name} 的手牌！")
         
         # 记录玩家自动出牌
         all_cards = current_player.hand.copy()  # 复制当前手牌以供记录
@@ -386,7 +429,8 @@ class Game:
         )
         
         if is_valid:
-            print(f"系统质疑失败！{current_player.name} 的手牌符合规则。")
+            if showDetails:
+                print(f"系统质疑失败！{current_player.name} 的手牌符合规则。")
             # 记录一个特殊的射击结果（无人射击）
             self.game_record.record_shooting(
                 shooter_name="无",
@@ -394,7 +438,8 @@ class Game:
             )
             self.reset_round(record_shooter=False)
         else:
-            print(f"系统质疑成功！{current_player.name} 的手牌违规，将执行射击惩罚。")
+            if showDetails:
+                print(f"系统质疑成功！{current_player.name} 的手牌违规，将执行射击惩罚。")
             self.perform_penalty(current_player)
 
     def handle_reflection(self) -> None:
@@ -426,8 +471,9 @@ class Game:
 
         return alive_players
 
-    def play_round(self) -> None:
+    def play_round(self, showDetails: Optional[bool] = None) -> None:
         """执行一轮游戏逻辑"""
+        showDetails = self.showDetails if showDetails is None else showDetails
         current_player = self.players[self.current_player_idx]
 
          # 当其他所有存活玩家都没有手牌时，系统自动对当前玩家进行质疑
@@ -435,8 +481,9 @@ class Game:
             self.handle_system_challenge(current_player)
             return
 
-        print(f"\n轮到 {current_player.name} 出牌, 目标牌是 {self.target_card}")
-        current_player.print_status()
+        if showDetails:
+            print(f"\n轮到 {current_player.name} 出牌, 目标牌是 {self.target_card}")
+            current_player.print_status()
 
         # 找到下一位有手牌的玩家
         next_idx = self.find_next_player_with_cards(self.current_player_idx)
@@ -452,8 +499,10 @@ class Game:
                 self.perform_penalty(player_to_penalize)
                 return
             else:
-                print(f"{next_player.name} 选择不质疑，游戏继续。")
+                if showDetails:
+                    print(f"{next_player.name} 选择不质疑，游戏继续。")
                 
+
         # 切换至下一玩家
         self.current_player_idx = next_idx
 
@@ -472,7 +521,7 @@ if __name__ == "__main__":
         {"name": "Human2", "type": "manual"}
         # {"name": "SimpleAI", "type": "simple"},
         # {"name": "MiniAI", "type": "minimax", "search_depth": 2},
-        # {"name": "QLearner", "type": "qlearning"},
+        # {"name": "QLearner", "type": "LinearQ"},
     ]
 
     print("游戏开始！玩家配置如下：")

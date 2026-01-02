@@ -241,12 +241,14 @@ class RoundRecord:
 @dataclass
 class GameRecord:
     """完整游戏记录"""
-    def __init__(self):
+    def __init__(self, showDetails: bool):
         self.game_id: str = generate_game_id()
         self.player_names: List[str] = []
         self.rounds: List[RoundRecord] = []
         self.winner: Optional[str] = None
         self.save_directory: str = "game_records"
+        self.all_cards_played: List[str] = []
+        self.showDetails = showDetails
         
         # 确保保存目录存在
         if not os.path.exists(self.save_directory):
@@ -290,6 +292,8 @@ class GameRecord:
                 play_thinking=play_thinking
             )
             current_round.add_play_action(play_action)
+
+        
     
     def record_challenge(self, was_challenged: bool, reason: str = None, result: bool = None, challenge_thinking: str = None) -> None:
         """记录质疑信息"""
@@ -352,7 +356,8 @@ class GameRecord:
 
     def auto_save(self) -> None:
         """自动保存当前游戏记录到文件"""
-        # file_path = os.path.join(self.save_directory, f"{self.game_id}.json")
-        # with open(file_path, "w", encoding="utf-8") as file:
-        #     json.dump(self.to_dict(), file, indent=4, ensure_ascii=False)
-        # print(f"游戏记录已自动保存至 {file_path}")
+        if self.showDetails:
+            file_path = os.path.join(self.save_directory, f"{self.game_id}.json")
+            with open(file_path, "w", encoding="utf-8") as file:
+                json.dump(self.to_dict(), file, indent=4, ensure_ascii=False)
+            print(f"游戏记录已自动保存至 {file_path}")
