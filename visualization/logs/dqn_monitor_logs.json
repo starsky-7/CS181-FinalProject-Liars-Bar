@@ -1,0 +1,18 @@
+{
+  "q_values_stats": {
+    "mean": [],
+    "std": [],
+    "max": [],
+    "min": []
+  },
+  "action_choices": {
+    "play": {},
+    "challenge": {}
+  },
+  "state_action_records": [],
+  "reward_distribution": {},
+  "done_distribution": {
+    "done": 0,
+    "not_done": 0
+  }
+}
