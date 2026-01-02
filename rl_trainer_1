@@ -1,0 +1,161 @@
+from typing import List, Dict
+from game import Game
+from player import RLPlayer
+from LinearQAgent import LinearQAgent
+from DQNAgent import DQNAgent
+from tqdm import tqdm
+import os
+
+class RLTrainer:
+    """
+    强化学习训练器
+    """
+    
+    def __init__(self, agent_type: str, agent_config: Dict):
+        self.agent_type = agent_type
+        self.agent_config = agent_config
+        if self.agent_type == "LinearQ":
+            self.agent = LinearQAgent(**agent_config)
+        elif self.agent_type == "dqn":
+            self.agent = DQNAgent(**agent_config)
+    
+    def train(self, num_episodes: int, opponent_types: List[str] = None) -> None:
+        """
+        训练RL代理
+        """
+        if opponent_types is None:
+            opponent_types = ["simple", "smarter", "smarter"]  # 默认三个对手
+        
+        # 确保日志目录存在
+        os.makedirs("visualization/logs", exist_ok=True)
+        
+        # 1. 创建监控器
+        try:
+            from dqn_monitor import DQNMonitor
+            monitor = DQNMonitor(self.agent)
+            use_monitoring = True
+        except ImportError:
+            print("警告: DQNMonitor未找到，继续训练但不记录监控数据")
+            use_monitoring = False
+        
+        for episode in tqdm(range(num_episodes), desc="Training Episodes"):
+            # 动态创建玩家配置
+            player_configs = [
+                {"name": "RL_Player", "type": self.agent_type, "agent": self.agent, "is_training": True}
+            ]
+            
+            # 根据 opponent_types 创建对手
+            for i, opponent_type in enumerate(opponent_types[:3], 1):  # 最多取3个对手
+                player_configs.append({
+                    "name": f"Opponent{i}",
+                    "type": opponent_type
+                })
+            
+            # 如果对手不足3个，用"smarter"补齐
+            while len(player_configs) < 4:
+                idx = len(player_configs)
+                player_configs.append({
+                    "name": f"Opponent{idx}",
+                    "type": "smarter"
+                })
+            
+            # 创建游戏实例
+            game = Game(player_configs, showDetails=False)
+            
+            # 启动游戏
+            game.start_game()
+            
+            # 更新监控器
+            if use_monitoring:
+                monitor.step()
+                
+                # 定期保存监控数据
+                if episode % 100 == 0:
+                    monitor.save_logs()
+            
+            # 保存模型（每5000回合）
+            if (episode + 1) % 5000 == 0:
+                model_dir = "rl_models"
+                os.makedirs(model_dir, exist_ok=True)
+                self.agent.save_model(f"{model_dir}/agent_episode_{episode + 1}.pkl")
+                print(f"Model saved at episode {episode + 1}")
+        
+        # 最终保存监控数据
+        if use_monitoring:
+            monitor.save_logs()
+            print("训练完成，监控数据已保存")
+    
+    def evaluate(self, num_games: int, opponent_types: List[str] = None) -> Dict:
+        """
+        评估RL代理
+        """
+        if opponent_types is None:
+            opponent_types = ["simple", "smarter", "smarter"]
+        
+        results = {
+            "wins": 0,
+            "losses": 0,
+            "total_games": num_games
+        }
+        
+        for game_num in range(num_games):
+            print(f"Evaluation Game {game_num + 1}/{num_games}")
+            
+            # 创建玩家配置
+            player_configs = [
+                {"name": "RL_Player", "type": self.agent_type, "agent": self.agent, "is_training": False}
+            ]
+            
+            # 根据 opponent_types 创建对手
+            for i, opponent_type in enumerate(opponent_types[:3], 1):
+                player_configs.append({
+                    "name": f"Opponent{i}",
+                    "type": opponent_type
+                })
+            
+            # 如果对手不足3个，用"smarter"补齐
+            while len(player_configs) < 4:
+                idx = len(player_configs)
+                player_configs.append({
+                    "name": f"Opponent{idx}",
+                    "type": "smarter"
+                })
+            
+            # 创建游戏实例
+            game = Game(player_configs, showDetails=True)
+            
+            # 启动游戏
+            game.start_game()
+            
+            # 记录结果
+            if game.game_record.winner == "RL_Player":
+                results["wins"] += 1
+            else:
+                results["losses"] += 1
+        
+        results["win_rate"] = results["wins"] / results["total_games"] if results["total_games"] > 0 else 0
+        return results
+
+if __name__ == "__main__":
+    # 训练配置
+    agent_type = "dqn"  # "LinearQ" 或 "dqn"
+
+    agent_config = {
+        "learning_rate": 0.01,
+        "discount_factor": 0.95,
+        "epsilon": 0.5,
+        "epsilon_decay": 0.999,
+        "epsilon_min": 0.01
+    }
+    
+    # 创建训练器
+    trainer = RLTrainer(agent_type, agent_config)
+    
+    # 训练代理（先训练较少的回合进行测试）
+    print("开始训练...")
+    trainer.train(num_episodes=100, opponent_types=["simple", "smarter", "smarter"])
+    
+    # 评估代理
+    print("\n开始评估...")
+    results = trainer.evaluate(num_games=20, opponent_types=["simple", "smarter", "smarter"])
+    print(f"评估结果: {results}")
