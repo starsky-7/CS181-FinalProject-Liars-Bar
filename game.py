@@ -11,7 +11,7 @@ from player import (
     SmarterStrategyPlayer,
     RLPlayer,
     MinimaxPlayer,
-    # LinearQPlayer,
+    HeuristicPlayer
 )
 from game_record import GameRecord, PlayerInitialState
 
@@ -54,8 +54,8 @@ class Game:
                 player = RLPlayer(name, showDetails, agent, is_training)
             elif p_type == "minimax":
                 player = MinimaxPlayer(name, showDetails)
-            # elif p_type == "LinearQ":
-            #     player = LinearQPlayer(name)
+            elif p_type == "heuristic":
+                player = HeuristicPlayer(name, showDetails)
             else:
                 raise ValueError(f"未知玩家类型: {p_type}")
 
@@ -485,15 +485,16 @@ class Game:
             self.play_round()
 
 if __name__ == "__main__":
-    # 示例：2 个手动玩家
     player_configs = [
-    {"name": "MiniAI", "type": "minimax"},
+    # {"name": "MiniAI", "type": "minimax"},
     {
         "name": "QLearner",
         "type": "LinearQ",         
         "agent": LinearQAgent(),   
         "is_training": False      
-    }
+    },
+    # {"name": "SimpleAI", "type": "simple"},
+    {"name": "HeuristicAI", "type": "heuristic"}
     ]
 
     print("游戏开始！玩家配置如下：")
