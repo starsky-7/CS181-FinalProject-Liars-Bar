@@ -8,10 +8,7 @@ from player import (
     SimpleStrategyPlayer,
     SmarterStrategyPlayer,
     RLPlayer,
-    # MinimaxPlayer,
-    # LinearQPlayer,
 )
-from game_record import GameRecord, PlayerInitialState
 
 
 class Game:
@@ -36,10 +33,6 @@ class Game:
             p_type = config.get("type", "manual")
             name = config["name"]
 
-            # 修改：不再支持 LLM 玩家，移除 LLM 支持
-            # if p_type == "llm":
-            #     model = config.get("model", "deepseek-r1")  # LLM 不再使用，删除该行
-            #     player = LLMPlayer(name, model)  # LLMPlayer 不再使用，删除该行
             if p_type == "manual":
                 player = ManualPlayer(name, showDetails)
             elif p_type == "simple":
@@ -54,11 +47,6 @@ class Game:
                 agent = config.get("agent")
                 is_training = config.get("is_training", True)
                 player = RLPlayer(name, showDetails, agent, is_training)
-            # elif p_type == "minimax":
-            #     depth = config.get("search_depth", 1)
-            #     player = MinimaxPlayer(name, search_depth=depth)
-            # elif p_type == "LinearQ":
-            #     player = LinearQPlayer(name)
             else:
                 raise ValueError(f"未知玩家类型: {p_type}")
 
@@ -89,22 +77,6 @@ class Game:
     def deal_cards(self, showDetails: Optional[bool] = None) -> None:
         """发牌并清空旧手牌"""
         showDetails = self.showDetails if showDetails is None else showDetails
-
-        """
-        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        !!!!!!!!!!!!!!!!
-        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        为了调试用，我让它每局发一样的牌了。之后只需要把：
-        if self.round_count == 0:
-            self.deck = self._create_deck()
-            self.first_deck = self.deck.copy()
-        else:
-            self.deck = self.first_deck.copy()
-
-        改成：
-        self.deck = self._create_deck()
-        """
 
         self.deck = self._create_deck()  # 改回来了，现在是每局都重新洗牌
         for player in self.players:
@@ -188,7 +160,6 @@ class Game:
         if showDetails:
             print(f"玩家 {player.name} 开枪！")
         
-        #        """        showDetails = self.showDetails if showDetails is None else showDetails态
         still_alive = player.process_penalty()
         self.last_shooter_name = player.name
 
@@ -282,11 +253,15 @@ class Game:
             next_player.name
         )
 
+        # 增强决策信息：添加心理侧写摘要
+        psych_summary = current_player.get_psych_summary(next_player.name)
+        enhanced_play_decision_info = f"{play_decision_info}\n心理侧写：{psych_summary}"
+
         # 让当前玩家选择出牌
         play_result, reasoning = current_player.choose_cards_to_play(
             round_base_info,
             round_action_info,
-            play_decision_info
+            enhanced_play_decision_info  # 使用增强的决策信息
         )
 
         # 记录出牌行为
@@ -324,6 +299,10 @@ class Game:
             current_player.name
         )
 
+        # 增强决策信息：添加心理侧写摘要
+        psych_summary = next_player.get_psych_summary(current_player.name)
+        enhanced_challenge_decision_info = f"{challenge_decision_info}\n心理侧写：{psych_summary}"
+
         # 获取正在质疑玩家的表现
         challenging_player_behavior = self.game_record.get_latest_play_behavior()
 
@@ -334,7 +313,7 @@ class Game:
         challenge_result, reasoning = next_player.decide_challenge(
             round_base_info,
             round_action_info,
-            challenge_decision_info,
+            enhanced_challenge_decision_info,  # 使用增强的决策信息
             challenging_player_behavior,
             extra_hint
         )
@@ -416,7 +395,7 @@ class Game:
                 print(f"系统质疑成功！{current_player.name} 的手牌违规，将执行射击惩罚。")
             self.perform_penalty(current_player)
 
-    def handle_reflection(self) -> None:
+    def handle_reflection(self):
         """
         处理所有存活玩家的反思过程
         在每轮结束时调用，让玩家对其他玩家的行为进行反思和评估
@@ -492,9 +471,6 @@ if __name__ == "__main__":
     player_configs = [
         {"name": "Human1", "type": "manual"},
         {"name": "Human2", "type": "manual"}
-        # {"name": "SimpleAI", "type": "simple"},
-        # {"name": "MiniAI", "type": "minimax", "search_depth": 2},
-        # {"name": "QLearner", "type": "LinearQ"},
     ]
 
     print("游戏开始！玩家配置如下：")

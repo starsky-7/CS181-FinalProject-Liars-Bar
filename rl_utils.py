@@ -2,64 +2,41 @@ from typing import List, Dict, Tuple
 import numpy as np
 import re
 
+# 修改rl_utils.py中的StateEncoder
+
+# 修改rl_utils.py中的StateEncoder
+
 class StateEncoder:
-    """
-    将游戏状态编码为强化学习代理可以理解的形式
-    state: 游戏状态元组，包含以下元素：
-                - round_id: 轮次
-                - target_card: 目标牌 ('Q', 'K', 或 'A')
-                - current_bullet: 当前子弹位置
-                - q_count: 手牌中Q的数量
-                - k_count: 手牌中K的数量
-                - a_count: 手牌中A的数量
-                - joker_count: 手牌中Joker的数量
-                - target_count: 手牌中可当作目标牌的数量
-                - hand_size: 当前手牌总数
-                - [claimed_cards]: 质疑阶段特有，上一个玩家声称打出的牌数
-    """
+    """修改状态编码器以支持心理特征"""
     
-    def encode_play_state(
-        self,
-        round_base_info: str,
-        round_action_info: str,
-        play_decision_info: str,
-        hand: List[str],
-        target_card: str,
-        current_bullet: int
-    ) -> Tuple:
-        """
-        编码出牌阶段的状态
-        """
-        # 获取基础状态
+    def encode_play_state(self, round_base_info, round_action_info, play_decision_info,
+                         hand, target_card, current_bullet, psych_features=None):
+        """编码出牌阶段状态"""
         base_state = self._encode_base_state(round_base_info, hand, target_card, current_bullet)
         
-        # 出牌阶段不需要额外特征
-        return base_state
+        # 添加心理特征
+        if psych_features:
+            base_state = list(base_state)
+            base_state.extend(psych_features)
+        
+        return tuple(base_state)
     
-    def encode_challenge_state(
-        self,
-        round_base_info: str,
-        round_action_info: str,
-        challenge_decision_info: str,
-        challenging_player_performance: str,
-        hand: List[str],
-        target_card: str,
-        current_bullet: int
-    ) -> Tuple:
-        """
-        编码质疑阶段的状态
-        """
-        # 获取基础状态
+    def encode_challenge_state(self, round_base_info, round_action_info, challenge_decision_info,
+                              challenging_player_performance, hand, target_card, current_bullet,
+                              psych_features=None):
+        """编码质疑阶段状态"""
         base_state = list(self._encode_base_state(round_base_info, hand, target_card, current_bullet))
         
-        # 提取上一个玩家声称打出的牌数（质疑阶段特有）
+        # 提取声称牌数
         claimed_cards = 0
         match = re.search(r'宣称打出(\d+)张', challenging_player_performance)
         if match:
             claimed_cards = int(match.group(1))
-        
-        # 添加质疑阶段特有特征
         base_state.append(claimed_cards)
+        
+        # 添加心理特征
+        if psych_features:
+            base_state.extend(psych_features)
         
         return tuple(base_state)
     
@@ -74,7 +51,11 @@ class StateEncoder:
         编码两个阶段共有的基础状态（提取公共逻辑）
         """
         # 提取轮次信息
-        round_id = int(re.search(r'第(\d+)轮', round_base_info).group(1))
+        round_id_match = re.search(r'第(\d+)轮', round_base_info)
+        if round_id_match:
+            round_id = int(round_id_match.group(1))
+        else:
+            round_id = 1
         
         # 手牌编码
         hand_counts = self._encode_hand(hand, target_card)
@@ -150,7 +131,7 @@ class ActionDecoder:
     将强化学习代理的动作转换为游戏可以理解的形式
     """
     def __init__(self, max_hand_size: int = 5):
-        # max_hand_size 设成你游戏里“可能出现的最大手牌数”
+        # max_hand_size 设成你游戏里"可能出现的最大手牌数"
         self.play_space = PlayActionTemplateSpace(max_hand_size=max_hand_size)
 
     def num_play_actions(self) -> int:
@@ -181,9 +162,6 @@ class ActionDecoder:
         """
         tpl = self.play_space.templates[action_idx]
         played_cards = self.play_space.to_cards(tpl)
-        # （可选）安全校验：确保是手牌子集
-        # for c in played_cards:
-        #     assert c in hand, f"illegal decode: {played_cards} not subset of hand {hand}"
         return {"played_cards": played_cards}
     
     def num_total_actions(self) -> int:
@@ -201,32 +179,13 @@ class ActionDecoder:
             mask[N:] = 1.0  # 两个质疑动作都合法
         return mask
     
-class FeatureExtractor:
-    """
-    提取游戏状态的特征向量
-    """
+# 修改rl_utils.py中的FeatureExtractor
 
+class FeatureExtractor:
+    """修改特征提取器以处理心理特征"""
+    
     def get_features(self, state: Tuple) -> np.ndarray:
-        """
-        从游戏状态中提取有价值的特征向量
-        
-        参数:
-            state: 游戏状态元组，包含以下元素：
-                - round_id: 轮次
-                - target_card: 目标牌 ('Q', 'K', 或 'A')
-                - current_bullet: 当前子弹位置
-                - q_count: 手牌中Q的数量
-                - k_count: 手牌中K的数量
-                - a_count: 手牌中A的数量
-                - joker_count: 手牌中Joker的数量
-                - target_count: 手牌中可当作目标牌的数量
-                - hand_size: 当前手牌总数
-                - [claimed_cards]: 质疑阶段特有，上一个玩家声称打出的牌数
-        
-        返回:
-            特征向量
-        """
-        # 解析状态元组
+        # 基础特征提取
         round_id = state[0]
         target_card = state[1]
         current_bullet = state[2]
@@ -236,7 +195,9 @@ class FeatureExtractor:
         joker_count = state[6]
         target_count = state[7]
         hand_size = state[8]
-        is_challenge_state = len(state) > 9  # 质疑状态会有额外的claimed_cards字段
+        
+        # 判断状态类型
+        is_challenge_state = len(state) > 9
         claimed_cards = state[9] if is_challenge_state else 0
         
         features = []
@@ -244,34 +205,41 @@ class FeatureExtractor:
         # 1. 游戏轮次特征
         features.append(round_id)
         
-        # 2. 目标牌特征 (one-hot编码)
-        target_card_features = self._encode_target_card(target_card)
-        features.extend(target_card_features)
+        # 2. 目标牌特征
+        features.extend(self._encode_target_card(target_card))
         
         # 3. 子弹位置特征
         features.append(current_bullet)
-        features.append(6 - current_bullet)  # 距离枪膛底部的距离
-        features.append(1 if current_bullet == 0 else 0)  # 是否在起始位置
+        features.append(6 - current_bullet)
+        features.append(1 if current_bullet == 0 else 0)
         
-        # 4. 目标牌充足程度特征
-        features.append(target_count)  # 可使用的目标牌总数
-        features.append(target_count / hand_size if hand_size > 0 else 0)  # 目标牌在手牌中的比例
-        features.append(1 if target_count > 0 else 0)  # 是否有可用的目标牌
+        # 4. 手牌特征
+        features.append(target_count)
+        features.append(target_count / hand_size if hand_size > 0 else 0)
+        features.append(1 if target_count > 0 else 0)
         
-        # 5. 手牌大小特征
+        # 5. 手牌大小
         features.append(hand_size)
-        features.append(1 if hand_size == 0 else 0)  # 是否手牌为空
+        features.append(1 if hand_size == 0 else 0)
         
-        # 6. 特殊牌特征
-        features.append(joker_count)  # Joker数量
-        features.append(1 if joker_count > 0 else 0)  # 是否有Joker
+        # 6. 特殊牌
+        features.append(joker_count)
+        features.append(1 if joker_count > 0 else 0)
         
-        # 7. 质疑相关特征 (仅在质疑状态下有效)
+        # 7. 质疑相关特征
         if is_challenge_state:
-            features.append(claimed_cards)  # 对方声称打出的牌数
+            features.append(claimed_cards)
         else:
-            features.append(0)  # 非质疑状态，填充0
-        #     features.append(1 if claimed_cards > 我方所知的可能牌数 else 0)  # 声称的牌数是否超过我方所知的可能牌数
+            features.append(0)
+        
+        # 8. 心理特征（最后4个位置）
+        psych_start_idx = 10 if is_challenge_state else 9
+        if len(state) >= psych_start_idx + 4:
+            psych_features = list(state[psych_start_idx:psych_start_idx+4])
+            features.extend(psych_features)
+        else:
+            # 没有心理特征时使用默认值
+            features.extend([0.5, 0.5, 0.0, 0.5])  # 信任度、攻击性、熟悉度、趋势
         
         return np.array(features, dtype=np.float32)
     

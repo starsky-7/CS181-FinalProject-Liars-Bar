@@ -159,4 +159,4 @@ def print_statistics(stats, win_rates, game_count, player_names):
 if __name__ == "__main__":
     folder_path = "game_records"  # 替换为实际的文件夹路径
     stats, win_rates, game_count, player_names = analyze_game_records(folder_path)
-    print_statistics(stats, win_rates, game_count, player_names)
+    print_statistics(stats, win_rates, game_count, player_names) 

@@ -62,8 +62,10 @@ class DQNAgent:
     def _lazy_init(self, state):
         if self.q_net is not None:
             return
+        
+        # state现在是基础状态+心理特征的元组
         x = np.asarray(self.feature_extractor.get_features(state), dtype=np.float32)
-        self.num_features = x.shape[0]
+        self.num_features = x.shape[0]  # 这里会自动适应增强的特征维度
 
         # 一开始 Q 网络和 target 网络参数相同
         self.q_net = QNetwork(self.num_features, self.action_dim).to(self.device)
