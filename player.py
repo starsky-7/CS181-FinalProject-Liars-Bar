@@ -10,6 +10,8 @@ from dataclasses import dataclass
 from typing import List, Dict, Tuple, Optional
 import itertools
 import math
+from minimaxAgent import GameState, minimax_decision, extract_opponent_hand_size, infer_opponent_name
+from heuristicAgent import HeuristicAgent
 
 
 class BasePlayer(ABC):
@@ -709,4 +711,127 @@ class HumanLikeStrategyPlayer(BasePlayer):
             if last_player and last_player in self.opponent_stats:
                 self.opponent_stats[last_player]['fake_plays'] += 1
 
-            
+# ================== 5. Minimax玩家 ==================
+class MinimaxPlayer(BasePlayer):
+    """
+    使用 Minimax 决策策略的玩家
+    """
+
+    def choose_cards_to_play(
+        self,
+        round_base_info: str,
+        round_action_info: str,
+        play_decision_info: str,
+    ) -> Tuple[Dict, str]:
+        opponent_name = infer_opponent_name(round_base_info, self.name)
+        opponent_hand_size = extract_opponent_hand_size(round_action_info, opponent_name)
+
+        state = GameState(
+            hand=self.hand,
+            opponent_hand_size=opponent_hand_size,
+            target_card=self.target_card,
+            is_my_turn=True,
+            depth=3
+        )
+
+        best_action = minimax_decision(state)
+
+        for card in best_action:
+            self.hand.remove(card)
+
+        result = {
+            "played_cards": best_action,
+            "behavior": "Minimax决策",
+            "play_reason": "模拟对局后选择期望最高出牌"
+        }
+        return result, f"Minimax选择出牌：{best_action}"
+
+    def decide_challenge(
+        self,
+        round_base_info: str,
+        round_action_info: str,
+        challenge_decision_info: str,
+        challenging_player_performance: str,
+        extra_hint: str,
+    ) -> Tuple[Dict, str]:
+        result = {
+            "was_challenged": True,
+            "challenge_reason": "Minimax策略：默认质疑（可改进）",
+        }
+        return result, "Minimax策略：默认质疑"
+    
+# ================== 6. 启发式玩家 ==================
+class HeuristicPlayer(BasePlayer):
+    def __init__(self, name, show_details):
+        super().__init__(name, show_details)
+        self.agent = None
+
+    def choose_cards_to_play(
+        self,
+        round_base_info,
+        round_action_info,
+        play_decision_info
+    ):
+        if self.agent is None:
+            self.agent = HeuristicAgent(
+                self.name,
+                self.hand.copy(),
+                self.target_card
+            )
+
+        # 同步状态
+        self.agent.hand = self.hand.copy()
+        self.agent.target_card = self.target_card
+
+        result, message = self.agent.choose_cards_to_play()
+
+        # 同步回 Game
+        self.hand = self.agent.hand
+        return result, message
+
+    def decide_challenge(
+        self,
+        round_base_info: str,
+        round_action_info: str,
+        challenge_decision_info: str,
+        challenging_player_performance: str,
+        extra_hint: str,
+    ) -> Tuple[Dict, str]:
+        """
+        综合风险加可疑程度
+        """
+
+        suspicion = 0
+
+        # 对方没出牌 or 出 0 张
+        if "出牌数为0" in round_action_info:
+            suspicion += 3
+
+        # 2 对方提到 Joker
+        if "Joker" in round_action_info:
+            suspicion += 2
+
+        # 对方行为描述很模糊
+        if "表现" in round_action_info and "无" in round_action_info:
+            suspicion += 1
+
+        # 系统提示：其他玩家没牌了
+        if extra_hint:
+            suspicion += 2
+
+        # 自己当前很危险
+        if self.current_bullet_position >= 4:
+            suspicion -= 2
+
+        #  启发阈值
+        should_challenge = suspicion >= 3
+
+        if random.random() < 0:  # 30% 概率质疑
+            should_challenge = True
+
+        result = {
+            "was_challenged": should_challenge,
+            "challenge_reason": f"启发式质疑评估值={suspicion}"
+        }
+
+        return result, f"启发式质疑：{'质疑' if should_challenge else '不质疑'}"

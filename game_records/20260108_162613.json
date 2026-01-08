@@ -1,0 +1,690 @@
+{
+    "game_id": "20260108_162613",
+    "player_names": [
+        "Human1",
+        "Human2"
+    ],
+    "rounds": [
+        {
+            "round_id": 1,
+            "target_card": "A",
+            "round_players": [
+                "Human1",
+                "Human2"
+            ],
+            "starting_player": "Human1",
+            "player_initial_states": [
+                {
+                    "player_name": "Human1",
+                    "bullet_position": 4,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "A",
+                        "K",
+                        "K",
+                        "K",
+                        "A"
+                    ]
+                },
+                {
+                    "player_name": "Human2",
+                    "bullet_position": 5,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "Q",
+                        "A",
+                        "K",
+                        "K",
+                        "A"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "Human1": {
+                    "Human2": "还不了解这个玩家"
+                },
+                "Human2": {
+                    "Human1": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "Human1",
+                    "played_cards": [],
+                    "remaining_cards": [
+                        "A",
+                        "K",
+                        "K",
+                        "K",
+                        "A"
+                    ],
+                    "play_reason": "无",
+                    "behavior": "无",
+                    "next_player": "Human2",
+                    "was_challenged": true,
+                    "challenge_reason": "直觉",
+                    "challenge_result": false,
+                    "play_thinking": "",
+                    "challenge_thinking": ""
+                }
+            ],
+            "round_result": {
+                "shooter_name": "Human2",
+                "bullet_hit": false
+            }
+        },
+        {
+            "round_id": 2,
+            "target_card": "K",
+            "round_players": [
+                "Human1",
+                "Human2"
+            ],
+            "starting_player": "Human2",
+            "player_initial_states": [
+                {
+                    "player_name": "Human1",
+                    "bullet_position": 4,
+                    "current_gun_position": 0,
+                    "initial_hand": [
+                        "Q",
+                        "K",
+                        "Q",
+                        "Q",
+                        "Q"
+                    ]
+                },
+                {
+                    "player_name": "Human2",
+                    "bullet_position": 5,
+                    "current_gun_position": 1,
+                    "initial_hand": [
+                        "A",
+                        "A",
+                        "A",
+                        "A",
+                        "Q"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "Human1": {
+                    "Human2": "还不了解这个玩家"
+                },
+                "Human2": {
+                    "Human1": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "Human2",
+                    "played_cards": [],
+                    "remaining_cards": [
+                        "A",
+                        "A",
+                        "A",
+                        "A",
+                        "Q"
+                    ],
+                    "play_reason": "无",
+                    "behavior": "无",
+                    "next_player": "Human1",
+                    "was_challenged": true,
+                    "challenge_reason": "直觉",
+                    "challenge_result": false,
+                    "play_thinking": "",
+                    "challenge_thinking": ""
+                }
+            ],
+            "round_result": {
+                "shooter_name": "Human1",
+                "bullet_hit": false
+            }
+        },
+        {
+            "round_id": 3,
+            "target_card": "Q",
+            "round_players": [
+                "Human1",
+                "Human2"
+            ],
+            "starting_player": "Human1",
+            "player_initial_states": [
+                {
+                    "player_name": "Human1",
+                    "bullet_position": 4,
+                    "current_gun_position": 1,
+                    "initial_hand": [
+                        "A",
+                        "K",
+                        "A",
+                        "A",
+                        "Q"
+                    ]
+                },
+                {
+                    "player_name": "Human2",
+                    "bullet_position": 5,
+                    "current_gun_position": 1,
+                    "initial_hand": [
+                        "K",
+                        "A",
+                        "A",
+                        "K",
+                        "A"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "Human1": {
+                    "Human2": "还不了解这个玩家"
+                },
+                "Human2": {
+                    "Human1": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "Human1",
+                    "played_cards": [],
+                    "remaining_cards": [
+                        "A",
+                        "K",
+                        "A",
+                        "A",
+                        "Q"
+                    ],
+                    "play_reason": "无",
+                    "behavior": "无",
+                    "next_player": "Human2",
+                    "was_challenged": true,
+                    "challenge_reason": "直觉",
+                    "challenge_result": false,
+                    "play_thinking": "",
+                    "challenge_thinking": ""
+                }
+            ],
+            "round_result": {
+                "shooter_name": "Human2",
+                "bullet_hit": false
+            }
+        },
+        {
+            "round_id": 4,
+            "target_card": "Q",
+            "round_players": [
+                "Human1",
+                "Human2"
+            ],
+            "starting_player": "Human2",
+            "player_initial_states": [
+                {
+                    "player_name": "Human1",
+                    "bullet_position": 4,
+                    "current_gun_position": 1,
+                    "initial_hand": [
+                        "Q",
+                        "Q",
+                        "K",
+                        "A",
+                        "A"
+                    ]
+                },
+                {
+                    "player_name": "Human2",
+                    "bullet_position": 5,
+                    "current_gun_position": 2,
+                    "initial_hand": [
+                        "A",
+                        "Q",
+                        "K",
+                        "Q",
+                        "Joker"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "Human1": {
+                    "Human2": "还不了解这个玩家"
+                },
+                "Human2": {
+                    "Human1": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "Human2",
+                    "played_cards": [],
+                    "remaining_cards": [
+                        "A",
+                        "Q",
+                        "K",
+                        "Q",
+                        "Joker"
+                    ],
+                    "play_reason": "无",
+                    "behavior": "无",
+                    "next_player": "Human1",
+                    "was_challenged": true,
+                    "challenge_reason": "直觉",
+                    "challenge_result": false,
+                    "play_thinking": "",
+                    "challenge_thinking": ""
+                }
+            ],
+            "round_result": {
+                "shooter_name": "Human1",
+                "bullet_hit": false
+            }
+        },
+        {
+            "round_id": 5,
+            "target_card": "A",
+            "round_players": [
+                "Human1",
+                "Human2"
+            ],
+            "starting_player": "Human1",
+            "player_initial_states": [
+                {
+                    "player_name": "Human1",
+                    "bullet_position": 4,
+                    "current_gun_position": 2,
+                    "initial_hand": [
+                        "A",
+                        "Joker",
+                        "Q",
+                        "K",
+                        "A"
+                    ]
+                },
+                {
+                    "player_name": "Human2",
+                    "bullet_position": 5,
+                    "current_gun_position": 2,
+                    "initial_hand": [
+                        "Q",
+                        "A",
+                        "Joker",
+                        "Q",
+                        "A"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "Human1": {
+                    "Human2": "还不了解这个玩家"
+                },
+                "Human2": {
+                    "Human1": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "Human1",
+                    "played_cards": [],
+                    "remaining_cards": [
+                        "A",
+                        "Joker",
+                        "Q",
+                        "K",
+                        "A"
+                    ],
+                    "play_reason": "无",
+                    "behavior": "无",
+                    "next_player": "Human2",
+                    "was_challenged": true,
+                    "challenge_reason": "直觉",
+                    "challenge_result": false,
+                    "play_thinking": "",
+                    "challenge_thinking": ""
+                }
+            ],
+            "round_result": {
+                "shooter_name": "Human2",
+                "bullet_hit": false
+            }
+        },
+        {
+            "round_id": 6,
+            "target_card": "A",
+            "round_players": [
+                "Human1",
+                "Human2"
+            ],
+            "starting_player": "Human2",
+            "player_initial_states": [
+                {
+                    "player_name": "Human1",
+                    "bullet_position": 4,
+                    "current_gun_position": 2,
+                    "initial_hand": [
+                        "Q",
+                        "K",
+                        "A",
+                        "Q",
+                        "Joker"
+                    ]
+                },
+                {
+                    "player_name": "Human2",
+                    "bullet_position": 5,
+                    "current_gun_position": 3,
+                    "initial_hand": [
+                        "A",
+                        "Q",
+                        "Q",
+                        "K",
+                        "Q"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "Human1": {
+                    "Human2": "还不了解这个玩家"
+                },
+                "Human2": {
+                    "Human1": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "Human2",
+                    "played_cards": [],
+                    "remaining_cards": [
+                        "A",
+                        "Q",
+                        "Q",
+                        "K",
+                        "Q"
+                    ],
+                    "play_reason": "无",
+                    "behavior": "无",
+                    "next_player": "Human1",
+                    "was_challenged": true,
+                    "challenge_reason": "直觉",
+                    "challenge_result": false,
+                    "play_thinking": "",
+                    "challenge_thinking": ""
+                }
+            ],
+            "round_result": {
+                "shooter_name": "Human1",
+                "bullet_hit": false
+            }
+        },
+        {
+            "round_id": 7,
+            "target_card": "Q",
+            "round_players": [
+                "Human1",
+                "Human2"
+            ],
+            "starting_player": "Human1",
+            "player_initial_states": [
+                {
+                    "player_name": "Human1",
+                    "bullet_position": 4,
+                    "current_gun_position": 3,
+                    "initial_hand": [
+                        "A",
+                        "K",
+                        "A",
+                        "A",
+                        "K"
+                    ]
+                },
+                {
+                    "player_name": "Human2",
+                    "bullet_position": 5,
+                    "current_gun_position": 3,
+                    "initial_hand": [
+                        "Q",
+                        "Q",
+                        "A",
+                        "A",
+                        "Q"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "Human1": {
+                    "Human2": "还不了解这个玩家"
+                },
+                "Human2": {
+                    "Human1": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "Human1",
+                    "played_cards": [],
+                    "remaining_cards": [
+                        "A",
+                        "K",
+                        "A",
+                        "A",
+                        "K"
+                    ],
+                    "play_reason": "y",
+                    "behavior": "无",
+                    "next_player": "Human2",
+                    "was_challenged": true,
+                    "challenge_reason": "直觉",
+                    "challenge_result": false,
+                    "play_thinking": "",
+                    "challenge_thinking": ""
+                }
+            ],
+            "round_result": {
+                "shooter_name": "Human2",
+                "bullet_hit": false
+            }
+        },
+        {
+            "round_id": 8,
+            "target_card": "K",
+            "round_players": [
+                "Human1",
+                "Human2"
+            ],
+            "starting_player": "Human2",
+            "player_initial_states": [
+                {
+                    "player_name": "Human1",
+                    "bullet_position": 4,
+                    "current_gun_position": 3,
+                    "initial_hand": [
+                        "Q",
+                        "K",
+                        "A",
+                        "Q",
+                        "K"
+                    ]
+                },
+                {
+                    "player_name": "Human2",
+                    "bullet_position": 5,
+                    "current_gun_position": 4,
+                    "initial_hand": [
+                        "A",
+                        "K",
+                        "Q",
+                        "K",
+                        "A"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "Human1": {
+                    "Human2": "还不了解这个玩家"
+                },
+                "Human2": {
+                    "Human1": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "Human2",
+                    "played_cards": [],
+                    "remaining_cards": [
+                        "A",
+                        "K",
+                        "Q",
+                        "K",
+                        "A"
+                    ],
+                    "play_reason": "y",
+                    "behavior": "无",
+                    "next_player": "Human1",
+                    "was_challenged": true,
+                    "challenge_reason": "直觉",
+                    "challenge_result": false,
+                    "play_thinking": "",
+                    "challenge_thinking": ""
+                }
+            ],
+            "round_result": {
+                "shooter_name": "Human1",
+                "bullet_hit": false
+            }
+        },
+        {
+            "round_id": 9,
+            "target_card": "A",
+            "round_players": [
+                "Human1",
+                "Human2"
+            ],
+            "starting_player": "Human1",
+            "player_initial_states": [
+                {
+                    "player_name": "Human1",
+                    "bullet_position": 4,
+                    "current_gun_position": 4,
+                    "initial_hand": [
+                        "Q",
+                        "A",
+                        "K",
+                        "A",
+                        "K"
+                    ]
+                },
+                {
+                    "player_name": "Human2",
+                    "bullet_position": 5,
+                    "current_gun_position": 4,
+                    "initial_hand": [
+                        "K",
+                        "A",
+                        "A",
+                        "Q",
+                        "A"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "Human1": {
+                    "Human2": "还不了解这个玩家"
+                },
+                "Human2": {
+                    "Human1": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "Human1",
+                    "played_cards": [],
+                    "remaining_cards": [
+                        "Q",
+                        "A",
+                        "K",
+                        "A",
+                        "K"
+                    ],
+                    "play_reason": "y",
+                    "behavior": "无",
+                    "next_player": "Human2",
+                    "was_challenged": true,
+                    "challenge_reason": "直觉",
+                    "challenge_result": false,
+                    "play_thinking": "",
+                    "challenge_thinking": ""
+                }
+            ],
+            "round_result": {
+                "shooter_name": "Human2",
+                "bullet_hit": false
+            }
+        },
+        {
+            "round_id": 10,
+            "target_card": "A",
+            "round_players": [
+                "Human1",
+                "Human2"
+            ],
+            "starting_player": "Human2",
+            "player_initial_states": [
+                {
+                    "player_name": "Human1",
+                    "bullet_position": 4,
+                    "current_gun_position": 4,
+                    "initial_hand": [
+                        "Q",
+                        "A",
+                        "A",
+                        "Joker",
+                        "Joker"
+                    ]
+                },
+                {
+                    "player_name": "Human2",
+                    "bullet_position": 5,
+                    "current_gun_position": 5,
+                    "initial_hand": [
+                        "A",
+                        "A",
+                        "K",
+                        "A",
+                        "A"
+                    ]
+                }
+            ],
+            "player_opinions": {
+                "Human1": {
+                    "Human2": "还不了解这个玩家"
+                },
+                "Human2": {
+                    "Human1": "还不了解这个玩家"
+                }
+            },
+            "play_history": [
+                {
+                    "player_name": "Human2",
+                    "played_cards": [],
+                    "remaining_cards": [
+                        "A",
+                        "A",
+                        "K",
+                        "A",
+                        "A"
+                    ],
+                    "play_reason": "无",
+                    "behavior": "无",
+                    "next_player": "Human1",
+                    "was_challenged": true,
+                    "challenge_reason": "直觉",
+                    "challenge_result": false,
+                    "play_thinking": "",
+                    "challenge_thinking": ""
+                }
+            ],
+            "round_result": {
+                "shooter_name": "Human1",
+                "bullet_hit": true
+            }
+        }
+    ],
+    "winner": "Human2"
+}
